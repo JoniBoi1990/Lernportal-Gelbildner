@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lernportal: Gele & Naturstoffe – Panna Cotta, Proteine & Kohlenhydrate</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Print-Header für den offiziellen Leistungsnachweis (nur beim Drucken sichtbar) -->
+  <header class="print-header">
+    <div class="print-school-meta">
+      <h2>Schule Birklehof – Gymnasium</h2>
+      <p>Kursstufe Chemie – Basisfach (Bildungsplan 2016 BW, Inhaltsbereich 3.3.3 Naturstoffe)</p>
+      <h1>Portfolio &amp; Leistungsnachweis: Gele &amp; Naturstoffe</h1>
+    </div>
+    <div class="print-student-data">
+      <div class="print-field"><strong>Name d. Schülerin/Schülers:</strong> <span id="printName">–</span></div>
+      <div class="print-field"><strong>Kurs:</strong> <span id="printCourse">–</span></div>
+      <div class="print-field"><strong>Datum:</strong> <span id="printDate">–</span></div>
+      <div class="print-field"><strong>Erreichte Punkte im Diagnose-Quiz:</strong> <span id="printScore">0 / 10 BE (MC)</span></div>
+    </div>
+  </header>
+
+  <!-- Obere Navigations- und Kontrollleiste -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-badge">BF Kursstufe</div>
+        <div class="brand-text">
+          <h1>Gele &amp; Naturstoffe</h1>
+          <p class="subtitle">Von der Panna Cotta zur Makromolekülstruktur • Chemie Basisfach BW</p>
+        </div>
+      </div>
+
+      <!-- Benutzerdaten & Global Controls -->
+      <div class="header-actions">
+        <div class="user-meta-inputs">
+          <input type="text" id="studentNameInput" placeholder="Dein Name" title="Name der Schülerin / des Schülers">
+          <input type="text" id="studentCourseInput" placeholder="Kurs (z.B. CH-BF-1)" title="Chemie-Kurs">
+        </div>
+        <div class="score-display" title="Dein aktueller Punktestand in den Diagnoseaufgaben">
+          <span class="score-icon">★</span>
+          <span id="globalScoreText">0 / 10 BE (MC)</span>
+        </div>
+        <button id="themeToggleBtn" class="btn btn-outline btn-icon" title="Hell-/Dunkelmodus umschalten">
+          <span class="theme-icon">🌓</span>
+        </button>
+        <button id="printBtn" class="btn btn-primary" title="Portfolio als PDF drucken oder exportieren">
+          <span>🖨️ PDF / Druck</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <div class="nav-container">
+        <button class="nav-tab active" data-target="modul-0">
+          <span class="tab-num">0</span>
+          <span class="tab-label">Panna Cotta Labor</span>
+        </button>
+        <button class="nav-tab" data-target="modul-solgel">
+          <span class="tab-num">🔬</span>
+          <span class="tab-label">Sol-Gel-Simulator</span>
+        </button>
+        <button class="nav-tab" data-target="modul-proteine">
+          <span class="tab-num">A</span>
+          <span class="tab-label">Strang A: Proteine</span>
+        </button>
+        <button class="nav-tab" data-target="modul-kohlenhydrate">
+          <span class="tab-num">B</span>
+          <span class="tab-label">Strang B: Kohlenhydrate</span>
+        </button>
+        <button class="nav-tab" data-target="modul-synthese">
+          <span class="tab-num">⚖️</span>
+          <span class="tab-label">Synthese &amp; Vergleich</span>
+        </button>
+        <button class="nav-tab" data-target="modul-diagnose">
+          <span class="tab-num">✓</span>
+          <span class="tab-label">Diagnose &amp; Portfolio</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hauptinhalt mit Modul-Sektionen -->
+  <main class="app-main">
+
+    <!-- ========================================================================= -->
+    <!-- MODUL 0: Einstieg & Küchenlabor (Panna Cotta)                             -->
+    <!-- ========================================================================= -->
+    <section id="modul-0" class="module-section active">
+      <div class="module-hero">
+        <div class="hero-badge">Küchenchemie trifft Makromoleküle</div>
+        <h2>Panna Cotta: Das Geheimnis des perfekten Gels</h2>
+        <p class="hero-desc">
+          Zwei Schalen Panna Cotta stehen vor dir. Die Gelbildner sind chemisch sehr verschieden. Schmeckst du den
+          Unterschied auch?
+        </p>
+      </div>
+
+      <!-- Rezept-Vergleichskarten -->
+      <div class="recipe-grid">
+        <!-- Karte 1: Protein-Gel (Gelatine) -->
+        <div class="recipe-card protein-card">
+          <h3>Protein-Gel (Gelatine)</h3>
+          <div class="ingredients-box">
+            <h4>Rezeptur (pro Portion):</h4>
+            <ul>
+              <li><strong>2,5 g Gelatine</strong> (ca. 1,25 Blatt)</li>
+              <li>15 g Wasser (kalt, zum Einweichen)</li>
+              <li>130 g Sahne</li>
+              <li>120 g Milch</li>
+              <li>25 g Zucker</li>
+              <li>Bourbon-Vanille</li>
+            </ul>
+          </div>
+          <div class="steps-box">
+            <h4>Herstellungsschritte:</h4>
+            <ol>
+              <li>Gelatine im kalten Wasser für 5 min einweichen und quellen lassen.</li>
+              <li>Milch, Sahne, Zucker und Vanille unter Rühren kurz aufkochen.</li>
+              <li>Auf unter <strong>60 °C</strong> abkühlen lassen, dann die ausgedrückte Gelatine gründlich einrühren.
+              </li>
+              <li>Auf ca. <strong>10 °C</strong> abkühlen, in Förmchen füllen und kühl stellen.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Karte 2: Kohlenhydrat-Gel (Carrageen) -->
+        <div class="recipe-card carbohydrate-card">
+          <h3>Kohlenhydrat-Gel (Carrageen)</h3>
+          <div class="ingredients-box">
+            <h4>Rezeptur (pro Portion):</h4>
+            <ul>
+              <li><strong>0,15 g Iota-Carrageen</strong> (sehr geringe Dosis!)</li>
+              <li>130 g Sahne</li>
+              <li>120 g Milch</li>
+              <li>25 g Zucker</li>
+              <li>Bourbon-Vanille</li>
+            </ul>
+          </div>
+          <div class="steps-box">
+            <h4>Herstellungsschritte:</h4>
+            <ol>
+              <li>Carrageen-Pulver trocken mit dem Zucker vermengen (fein dispergieren, um Klumpenbildung zu
+                verhindern!).</li>
+              <li>Milch und Sahne im Topf vorlegen, Zucker-Carrageen-Mischung klumpenfrei einrühren.</li>
+              <li>Unter ständigem Rühren aufkochen (Aktivierungstemperatur &gt; 80 °C).</li>
+              <li>Auf ca. <strong>30–35 °C</strong> abkühlen, in Förmchen füllen und kühl stellen (geliert bereits bei
+                Raumtemperatur!).</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Didaktische Brücke & Küchennotizbuch -->
+      <div class="infobox highlight-box">
+        <div class="infobox-header">
+          <span class="info-icon">💡</span>
+          <h3>Leitfragen für den Forschenden Unterricht</h3>
+        </div>
+        <p>
+          Wie gelingt es winzigen Mengen eines Feststoffs (2,5 g Gelatine bzw. nur 0,15 g Carrageen),
+          über 250 g flüssige Milch und Sahne vollständig in einen wackelfesten Zustand zu überführen?
+        </p>
+        <div class="branch-selector">
+          <p><strong>Wähle deinen Untersuchungspfad:</strong></p>
+          <div class="button-group">
+            <button class="btn btn-protein" onclick="switchModule('modul-proteine')">
+              👉 Strang A: Proteine (Gelatine &amp; Aminosäuren)
+            </button>
+            <button class="btn btn-carbo" onclick="switchModule('modul-kohlenhydrate')">
+              👉 Strang B: Kohlenhydrate (Carrageen, Stärke &amp; Zucker)
+            </button>
+            <button class="btn btn-outline" onclick="switchModule('modul-solgel')">
+              🔬 Zuerst das Phänomen im Sol-Gel-Simulator testen
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MODUL SOL-GEL: Interaktiver Sol-Gel-Simulator                             -->
+    <!-- ========================================================================= -->
+    <section id="modul-solgel" class="module-section">
+      <div class="module-hero">
+        <div class="hero-badge">Interaktive Physik &amp; Physikalische Chemie</div>
+        <h2>Der Sol-Gel-Übergang: Wie Flüssigkeiten fest werden</h2>
+        <p class="hero-desc">
+          Ein Gel ist ein <em>disperses System</em> aus mindestens zwei Komponenten: Ein dreidimensionales
+          Makromolekül-Netzwerk
+          (die feste Phase) schließt ein enormes Volumen an flüssigem Wasser ein. Verändere die Temperatur und
+          beobachte,
+          wie sich die Ketten verhalten!
+        </p>
+      </div>
+
+      <!-- Simulator Steuerung & Canvas -->
+      <div class="simulator-wrapper">
+        <div class="simulator-controls card">
+          <h3>Labor-Parameter</h3>
+
+          <div class="control-group">
+            <label for="tempSlider">
+              <span>Temperatur:</span>
+              <strong id="tempDisplay" class="value-badge">20 °C</strong>
+            </label>
+            <input type="range" id="tempSlider" min="0" max="90" value="20" step="1">
+            <div class="slider-marks">
+              <span>0 °C (Kühlschrank)</span>
+              <span>40 °C (Körpertemp.)</span>
+              <span>60 °C</span>
+              <span>90 °C (Kochen)</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Gel-Typ auswählen:</label>
+            <div class="radio-pill-group">
+              <label class="radio-pill active">
+                <input type="radio" name="gelType" value="gelatine" checked> Gelatine (Protein)
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="gelType" value="polysaccharid"> Pflanzl. Hydrokolloid
+              </label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Ansichts-Modus:</label>
+            <div class="btn-group-toggle">
+              <button id="toggleWaterBtn" class="btn btn-sm btn-outline active">Wassermoleküle anzeigen</button>
+              <button id="toggleHBondsBtn" class="btn btn-sm btn-outline active">H-Brücken hervorheben</button>
+            </div>
+          </div>
+
+          <!-- Zustands-Dashboard -->
+          <div class="sim-dashboard">
+            <div class="dashboard-metric">
+              <span class="metric-label">Aggregatzustand / Phase:</span>
+              <span id="phaseDisplay" class="metric-value phase-gel">Elastisches GEL</span>
+            </div>
+            <div class="dashboard-metric">
+              <span class="metric-label">Viskosität (Zähigkeit):</span>
+              <div class="viscosity-bar-wrap">
+                <div id="viscosityBar" class="viscosity-bar" style="width: 85%;"></div>
+              </div>
+            </div>
+            <div class="dashboard-metric">
+              <span class="metric-label">Freie Wassermobilität:</span>
+              <span id="waterMobilityDisplay" class="metric-value">Gering (stark immobilisiert)</span>
+            </div>
+          </div>
+
+          <div class="info-callout">
+            <h4 id="simExplanationTitle">Gelatine-Netzwerk bei 20 °C</h4>
+            <p id="simExplanationText">
+              Die Polypeptidketten haben sich beim Abkühlen partiell zu Tripelhelices verdrillt und bilden über
+              Wasserstoffbrückenbindungen ein kontinuierliches 3D-Netzwerk. Wassermoleküle werden in den Maschen
+              gefangen.
+            </p>
+          </div>
+        </div>
+
+        <!-- Canvas Visualisierung -->
+        <div class="simulator-canvas-container card">
+          <div class="canvas-header">
+            <div class="canvas-title">Molekulare Mikroskopie (Schematische 2D-Partikelsimulation)</div>
+            <div class="canvas-legend">
+              <span class="legend-item"><span class="legend-dot dot-polymer"></span> Polymerkette</span>
+              <span class="legend-item"><span class="legend-dot dot-water"></span> H₂O-Moleküle</span>
+              <span class="legend-item"><span class="legend-dot dot-hbond"></span> H-Brücke</span>
+            </div>
+          </div>
+          <canvas id="solGelCanvas" width="600" height="450"></canvas>
+          <div class="canvas-footer-tip">
+            Tipp: Verändere den Temperaturregler, um den Übergang zwischen geordnetem Netzwerk (Gel) und frei beweglichen Knäueln (Sol) zu beobachten!
+          </div>
+        </div>
+      </div>
+
+      <!-- Didaktischer Erklärteil Sol-Gel -->
+      <div class="theory-grid">
+        <div class="card theory-card">
+          <h3>1. Was ist ein Sol? (Flüssige Dispersion)</h3>
+          <p>
+            Bei hoher thermischer Energie bewegen sich die Makromoleküle so intensiv, dass intramolekulare und
+            intermolekulare Wechselwirkungen ständig aufbrechen. Die Polymerketten liegen als ungebundene,
+            bewegliche Knäuel vor. Die Flüssigkeit fließt frei (geringe Viskosität).
+          </p>
+        </div>
+        <div class="card theory-card">
+          <h3>2. Was ist ein Gel? (Elastischer Festkörper)</h3>
+          <p>
+            Beim Abkühlen sinkt die kinetische Energie der Teilchen. Schwache zwischenmolekulare Kräfte
+            (vor allem <strong>Wasserstoffbrückenbindungen</strong>) überwiegen nun. Die Ketten verknäulen und
+            bilden <em>Junction Zones</em> (Verknüpfungsknoten). Es entsteht ein 3D-Gitter, das Wasser immobilisiert.
+          </p>
+        </div>
+        <div class="card theory-card">
+          <h3>3. Synärese: Wenn das Gel altert</h3>
+          <p>
+            Bleibt ein Gel lange stehen oder wird die Temperatur zu tief, ziehen sich die Polymerstränge
+            durch maximale Wechselwirkungsbildung immer enger zusammen. Das Gitter schrumpft und presst
+            freies Wasser an die Oberfläche – das Phänomen, wenn sich auf Joghurt oder Pudding Wasser absetzt.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MODUL A: Proteine (Gelatine, Aminosäuren, Peptidbindung, Struktur)         -->
+    <!-- ========================================================================= -->
+    <section id="modul-proteine" class="module-section">
+      <div class="module-hero">
+        <div class="hero-badge">Strang A: Stickstoffhaltige Makromoleküle</div>
+        <h2>Proteine: Meisterwerke der Faltung und Architektur</h2>
+        <p class="hero-desc">
+          Gelatine wird aus Kollagen gewonnen – dem häufigsten Protein tierischen Bindegewebes.
+          Um zu verstehen, warum Gelatine geliert, müssen wir die Hierarchie der Proteinstrukturen
+          von den Aminosäure-Bausteinen bis zum dreidimensionalen Netzwerk untersuchen.
+        </p>
+      </div>
+
+      <!-- Stufe 1: Aminosäuren-Baukasten -->
+      <div class="card content-card">
+        <div class="card-header-badge">Stufe 1 • Monomere Bausteine</div>
+        <h3>Die Bausteine: 2-Aminosäuren (α-Aminosäuren)</h3>
+        <p>
+          Alle natürlichen Proteine sind aus 20 verschiedenen <strong>proteinogenen Aminosäuren</strong> aufgebaut.
+          Sie besitzen am selben zentralen Kohlenstoffatom (Cα-Atom) vier verschiedene Substituenten:
+        </p>
+        <div class="amino-acid-formula-wrap">
+          <div class="formula-box">
+            <svg class="chem-svg" viewBox="0 0 360 170" width="100%" height="170">
+              <!-- Zwitterionenstruktur schematisch -->
+              <text x="50" y="90" class="svg-chem-atom" fill="var(--color-primary)">H₃N⁺</text>
+              <line x1="90" y1="85" x2="150" y2="85" stroke="var(--color-text)" stroke-width="2.5" />
+              <text x="155" y="90" class="svg-chem-atom" fill="var(--color-text)">CH</text>
+              <line x1="165" y1="65" x2="165" y2="25" stroke="var(--color-text)" stroke-width="2.5" />
+              <text x="160" y="20" class="svg-chem-atom" fill="var(--color-accent)">R</text>
+              <line x1="185" y1="85" x2="245" y2="85" stroke="var(--color-text)" stroke-width="2.5" />
+              <text x="250" y="90" class="svg-chem-atom" fill="var(--color-danger)">COO⁻</text>
+              <text x="120" y="150" class="svg-label">Zwitterionen-Form (am isoelektrischen Punkt IE)</text>
+            </svg>
+          </div>
+          <div class="formula-explanation">
+            <ul>
+              <li><strong>Aminogruppe (-NH₂ / -NH₃⁺):</strong> Wirkt als Brønsted-Base (Protonenakzeptor).</li>
+              <li><strong>Carboxygruppe (-COOH / -COO⁻):</strong> Wirkt als Brønsted-Säure (Protonendonator).</li>
+              <li><strong>Rest R:</strong> Die funktionelle Seitenkette bestimmt die chemischen Eigenschaften (polar,
+                unpolar, sauer, basisch).</li>
+              <li><strong>Chiralität:</strong> Das Cα-Atom ist asymmetrisch substituiert (Chiralitätszentrum, Ausnahme:
+                Glycin mit R = H). Natürliche Aminosäuren liegen in der <strong>L-Konfiguration</strong> vor.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 2: Interaktiver Peptidbindungs-Simulator -->
+      <div class="card content-card">
+        <div class="card-header-badge">Stufe 2 • Die Verknüpfung</div>
+        <h3>Die Peptidbindung: Kondensationsreaktion</h3>
+        <p>
+          Verknüpfen sich zwei Aminosäuren miteinander, reagiert die Carboxygruppe der einen Aminosäure mit der
+          Aminogruppe der zweiten unter <strong>Abspaltung eines Wassermoleküls (H₂O)</strong>.
+          Klicke auf den Button, um die Reaktion molekular durchzuführen!
+        </p>
+
+        <div class="reaction-interactive-box">
+          <div class="reaction-stage" id="peptideReactionStage">
+            <!-- Vor der Reaktion: Glycin + Alanin getrennt -->
+            <div class="molecule-reactant" id="reactant1">
+              <div class="mol-title">Glycin (R₁ = H)</div>
+              <div class="mol-struct">H₂N–CH₂–<span class="highlight-group cooh">COOH</span></div>
+            </div>
+            <div class="reaction-plus" id="reactionPlus">+</div>
+            <div class="molecule-reactant" id="reactant2">
+              <div class="mol-title">Alanin (R₂ = CH₃)</div>
+              <div class="mol-struct"><span class="highlight-group nh2">H₂N</span>–CH(CH₃)–COOH</div>
+            </div>
+
+            <!-- Reaktionspfeil & H2O -->
+            <div class="reaction-arrow-wrap" id="reactionArrowWrap">
+              <span class="arrow-symbol">⇄</span>
+              <span class="arrow-cond" id="waterEliminated">− H₂O (Kondensation)</span>
+            </div>
+
+            <!-- Nach der Reaktion: Dipeptid Glycylalanin -->
+            <div class="molecule-product" id="reactionProduct">
+              <div class="mol-title">Dipeptid: Glycylalanin</div>
+              <div class="mol-struct">H₂N–CH₂–<span class="highlight-peptide-bond">CO—NH</span>–CH(CH₃)–COOH</div>
+            </div>
+          </div>
+
+          <div class="reaction-action-bar">
+            <button id="btnPerformPeptideReaction" class="btn btn-primary">
+              ⚡ Kondensation auslösen (Peptidbindung knüpfen)
+            </button>
+            <button id="btnResetPeptideReaction" class="btn btn-outline">
+              🔄 Zurücksetzen
+            </button>
+          </div>
+
+          <div class="info-alert">
+            <strong>Besonderheit der Peptidgruppe (-CO-NH-):</strong>
+            Durch Mesomerie besitzt die C–N-Bindung einen <em>partiellen Doppelbindungscharakter</em> (ca. 40 %).
+            Sie ist daher bei Raumtemperatur nicht frei drehbar – alle sechs beteiligten Atome liegen planar in einer
+            Ebene!
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 3: Die vier Strukturebenen der Proteine & Denaturierung -->
+      <div class="card content-card">
+        <div class="card-header-badge">Stufe 3 • Vom Faden zur Raumstruktur</div>
+        <h3>Hierarchie der Proteinstruktur &amp; Wechselwirkungen</h3>
+        <p>
+          Wähle eine Strukturebene aus, um die Kräfte zu untersuchen, die das Molekül in seiner Form halten:
+        </p>
+
+        <div class="structure-tabs">
+          <button class="struct-tab active" data-level="1">1. Primärstruktur</button>
+          <button class="struct-tab" data-level="2">2. Sekundärstruktur</button>
+          <button class="struct-tab" data-level="3">3. Tertiärstruktur</button>
+          <button class="struct-tab" data-level="4">4. Gelatine / Kollagen-Netzwerk</button>
+        </div>
+
+        <div class="structure-display-area" id="structDisplayArea">
+          <!-- Dynamischer Inhalt via JavaScript gesteuert -->
+        </div>
+
+        <!-- Vertiefung Wechselwirkungen -->
+        <div class="interactions-detail-box">
+          <h4>Vier entscheidende Wechselwirkungen der Tertiärstruktur:</h4>
+          <div class="interaction-cards-grid">
+            <div class="inter-card">
+              <span class="inter-badge badge-covalent">Kovalent</span>
+              <h5>Disulfidbrücken</h5>
+              <p>Atombindung zwischen zwei Cystein-Seitenketten (-CH₂-S-S-CH₂-). Sehr temperaturstabil.</p>
+            </div>
+            <div class="inter-card">
+              <span class="inter-badge badge-ionic">Elektrostatisch</span>
+              <h5>Ionenbindungen / Salzbrücken</h5>
+              <p>Anziehung zwischen deprotonierten sauren (-COO⁻) und protonierten basischen (-NH₃⁺) Seitenketten.</p>
+            </div>
+            <div class="inter-card">
+              <span class="inter-badge badge-hbond">Dipol-Wechselwirkung</span>
+              <h5>Wasserstoffbrückenbindungen</h5>
+              <p>Zwischen polaren Gruppen (z.B. OH-Gruppen von Serin oder NH- und CO-Gruppen des Peptidrückgrats).</p>
+            </div>
+            <div class="inter-card">
+              <span class="inter-badge badge-london">Temporäre Dipole</span>
+              <h5>London-Wechselwirkungen</h5>
+              <p>Wechselwirkungen zwischen temporären und induzierten Dipolen unpolarer Kohlenwasserstoff-Reste
+                (hydrophobe Wechselwirkungen im Proteininneren).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Denaturierung -->
+        <div class="denaturation-box">
+          <h4>Thermische Denaturierung &amp; Kiwi-Effekt:</h4>
+          <p>
+            Hitze, extreme pH-Werte oder Enzyme zerstören die Sekundär- und Tertiärstruktur durch Aufbrechen der
+            Wasserstoffbrücken und Ionenbindungen. Die Primärstruktur (kovalente Peptidbindungen) bleibt intakt.
+          </p>
+          <div class="practical-tip">
+            <strong>Küchen-Rätsel: Warum geliert frische Ananas oder Kiwi nicht mit Gelatine?</strong><br>
+            Frische Ananas enthält das proteolytische Enzym <em>Bromelain</em> (Kiwi enthält <em>Actinidain</em>).
+            Diese Enzyme spalten die Polypeptidketten der Gelatine hydrolytisch in kurze Bruchstücke.
+            Die Bruchstücke können kein dreidimensionales Netzwerk mehr knüpfen – die Panna Cotta bleibt flüssig!
+            (Wird die Ananas vorher kurz aufgekocht, denaturiert das Enzym und das Gelieren funktioniert).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MODUL B: Kohlenhydrate (Carrageen, Stärke, Glucose, glykosid. Bindung)     -->
+    <!-- ========================================================================= -->
+    <section id="modul-kohlenhydrate" class="module-section">
+      <div class="module-hero">
+        <div class="hero-badge">Strang B: Polyhydroxycarbonyl-Verbindungen</div>
+        <h2>Kohlenhydrate: Von der D-Glucose zum pflanzlichen Stärke-Gel</h2>
+        <p class="hero-desc">
+          Im Rezept für das pflanzliche Panna Cotta verwendeten wir <em>Carrageen</em>.
+          Die Grundbausteine von Carrageenen sind Galactose und 3,6-Anhydrogalactose
+          (<a href="https://de.wikipedia.org/wiki/Carrageen" target="_blank" rel="noopener" class="wiki-link">vgl.
+            Wikipedia-Artikel Carrageen ↗</a>).
+          Zur didaktischen Vereinfachung und passend zum Bildungsplan der Kursstufe betrachten wir im Detail nun das
+          wichtigste pflanzliche Hydrokolloid: <strong>die Stärke</strong>, aufgebaut aus reiner
+          <strong>D-Glucose</strong>.
+        </p>
+      </div>
+
+      <!-- Stufe 1: Monosaccharide & Fischer-/Haworth-Projektion -->
+      <div class="card content-card">
+        <div class="card-header-badge">Stufe 1 • Monomere Bausteine</div>
+        <h3>D-Glucose: Offenkettige Fischer-Form vs. Haworth-Ringform</h3>
+        <p>
+          Glucose (C₆H₁₂O₆) ist eine <strong>Aldohexose</strong>: Sie besitzt eine Aldehydgruppe am C1 und fünf
+          Hydroxygruppen.
+          In wässriger Lösung liegt weniger als 0,1 % in der gestreckten Kettenform vor; über 99,9 % schließen sich
+          intramolekular zu einem stabilen Sechsring (Pyranose, Halbacetal) zusammen.
+        </p>
+
+        <!-- Struktur-Gegenüberstellung der Darstellungsformen -->
+        <div class="struct-images-grid" style="margin: 1.25rem 0;">
+          <div class="struct-image-card">
+            <div class="card-img-title">A. Offenkettige D-Glucose (Fischer-Projektion)</div>
+            <div class="struct-img-wrapper">
+              <img src="assets/glucose_fischer_projektion.png" alt="D-Glucose in Fischer-Projektion" class="struct-img" style="max-height: 230px;">
+            </div>
+            <div class="struct-img-caption">
+              <strong>Fischer-Projektion der D-Glucose:</strong>
+              <ul>
+                <li><strong>C1 (oben):</strong> Aldehydgruppe (−CH=O) bestimmt den Charakter als <em>Aldohexose</em> (reduzierende Eigenschaft).</li>
+                <li><strong>C2 bis C5:</strong> Vier Asymmetriezentren (Chiralitätszentren).</li>
+                <li><strong>D-Konfiguration:</strong> Die OH-Gruppe am C5 (dem am weitesten von C1 entfernten Chiralitätszentrum) steht nach <strong>rechts</strong> (D = dexter).</li>
+                <li><strong>Merkhilfe (Ta-Ba-Ta-Ta):</strong> Orientierung der OH-Gruppen an C2–C5: rechts – links – rechts – rechts.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="struct-image-card">
+            <div class="card-img-title">B. Ringform: α-D-Glucopyranose (Haworth-Projektion)</div>
+            <div class="struct-img-wrapper">
+              <img src="assets/glucose_haworth_alpha.png" alt="α-D-Glucopyranose in Haworth-Projektion" class="struct-img" style="max-height: 230px;">
+            </div>
+            <div class="struct-img-caption">
+              <strong>Haworth-Projektion (α-Anomer):</strong>
+              <ul>
+                <li><strong>Halbacetal-Ringschluss:</strong> C5-OH greift nucleophil C1 an → Sechsring (Pyranose).</li>
+                <li><strong>Anomeres Zentrum (C1):</strong> C1 wird asymmetrisch.</li>
+                <li><strong>α-D-Glucose:</strong> Die anomere OH-Gruppe am C1 zeigt nach <strong>unten</strong> (trans zur CH₂OH-Gruppe an C5).</li>
+                <li><strong>Bedeutung für Stärke:</strong> Ermöglicht gewinkelte α-1,4-Ketten und spiralförmige Helices (Amylose).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="struct-image-card">
+            <div class="card-img-title">C. Ringform: β-D-Glucopyranose (Haworth-Projektion)</div>
+            <div class="struct-img-wrapper">
+              <img src="assets/glucose_haworth_beta.png" alt="β-D-Glucopyranose in Haworth-Projektion" class="struct-img" style="max-height: 230px;">
+            </div>
+            <div class="struct-img-caption">
+              <strong>Haworth-Projektion (β-Anomer):</strong>
+              <ul>
+                <li><strong>Äquatoriale Lage:</strong> Am anomeren C1 steht die OH-Gruppe nach <strong>oben</strong> (cis zur CH₂OH-Gruppe an C5).</li>
+                <li><strong>Thermodynamische Stabilität:</strong> In wässriger Lösung liegt das Gleichgewicht zu ca. 64 % bei der β-Form (alle großen Substituenten äquatorial).</li>
+                <li><strong>Mutarotation:</strong> Über die offenkettige Form stellt sich ein dynamisches Gleichgewicht (ca. 36 % α, < 0,1 % offen, 64 % β) ein.</li>
+                <li><strong>Bedeutung für Cellulose:</strong> β-1,4-Bindungen führen zu gestreckten, linearen Faserbündeln.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interaktiver Ringschluss-Schalter -->
+        <div class="ring-closure-interactive">
+          <div class="toggle-control-box">
+            <span>Darstellungsform wählen:</span>
+            <div class="btn-group">
+              <button id="btnShowFischer" class="btn btn-outline active">Fischer-Projektion (offenkettig)</button>
+              <button id="btnShowHaworthAlpha" class="btn btn-outline">α-D-Glucopyranose (Haworth)</button>
+              <button id="btnShowHaworthBeta" class="btn btn-outline">β-D-Glucopyranose (Haworth)</button>
+            </div>
+          </div>
+
+          <div class="structure-diagram-container" id="sugarDiagramContainer">
+            <!-- Dynamisches SVG / Bild für Zuckerstrukturen -->
+          </div>
+
+          <div class="sugar-facts-grid">
+            <div class="fact-item">
+              <strong>Chiralitätszentren:</strong> In der Fischer-Projektion besitzt D-Glucose <strong>4 asymmetrische
+                C-Atome</strong> (C2, C3, C4, C5).
+            </div>
+            <div class="fact-item">
+              <strong>D-Konfiguration:</strong> Die OH-Gruppe am am weitesten entfernten Chiralitätszentrum (C5) steht
+              nach <strong>rechts</strong> (D = dexter).
+            </div>
+            <div class="fact-item">
+              <strong>Anomeres C-Atom:</strong> Durch den Ringschluss entsteht am C1 ein neues Chiralitätszentrum. Steht
+              die OH-Gruppe am C1 unten (trans zu CH₂OH), spricht man von <strong>α-D-Glucose</strong>; steht sie oben
+              (cis), von <strong>β-D-Glucose</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 2: Die glykosidische Bindung -->
+      <div class="card content-card">
+        <div class="card-header-badge">Stufe 2 • Die Verknüpfung</div>
+        <h3>Die glykosidische Bindung: Kondensation zweier Monosaccharide</h3>
+        <p>
+          Reagiert die anomere Halbacetal-OH-Gruppe eines Glucose-Moleküls mit einer alkoholischen OH-Gruppe eines
+          zweiten Zuckermoleküls unter <strong>Abspaltung von H₂O</strong>, entsteht ein Vollacetal – eine
+          <strong>glykosidische Bindung</strong>.
+        </p>
+
+        <!-- Struktur-Abbildung der glykosidischen Bindung -->
+        <div class="struct-image-card" style="margin: 1.25rem 0;">
+          <div class="card-img-title">Reaktionsschema: Bildung der glykosidischen Bindung (Kondensation am Beispiel Saccharose)</div>
+          <div class="struct-img-wrapper">
+            <img src="assets/glycosidische_bindung_saccharose.png" alt="Kondensation von Glucose und Fructose zu Saccharose unter Ausbildung einer glykosidischen Bindung" class="struct-img" style="max-height: 400px;">
+          </div>
+          <div class="struct-img-caption">
+            <strong>Erläuterung des Reaktionsschemas:</strong>
+            <ul>
+              <li><strong>Monomere Edukte:</strong> Links α-D-Glucose (Sechsring / Pyranose mit anomerer C1-OH-Gruppe in Rot), rechts β-D-Fructose (Fünfring / Furanose mit anomerer C2-OH-Gruppe in Rot).</li>
+              <li><strong>Kondensationsreaktion:</strong> Unter Abspaltung eines Wassermoleküls (H₂O) reagieren die beiden anomeren Hydroxygruppen miteinander.</li>
+              <li><strong>Glykosidische Bindung (Glycosidic Bond):</strong> Es entsteht eine kovalente Sauerstoffbrücke (Vollacetal). Bei Saccharose handelt es sich um eine <strong>α-1,β-2-glykosidische Bindung</strong>.</li>
+              <li><strong>Übertrag auf die Stärke-Synthese:</strong> In Amylose und Amylopektin erfolgt prinzipiell dieselbe Kondensationsreaktion, jedoch zwischen zwei Glucose-Molekülen: Das anomere C1-OH reagiert mit der alkoholischen C4-OH-Gruppe des Folgemonomers zu einer <strong>α-1,4-glykosidischen Bindung</strong>.</li>
+              <li><strong>Redoxverhalten (Fehling-Probe):</strong> Da bei Saccharose beide anomeren OH-Gruppen miteinander verknüpft sind, kann sich keine freie Aldehydgruppe mehr zurückbilden → Saccharose ist ein <strong>nicht-reduzierender Zucker</strong>. Bei Stärke und Maltose bleibt am Kettenende eine anomere Halbacetalgruppe frei → schwach reduzierend.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="glycosidic-interactive-box">
+          <div class="reaction-stage" id="glycosidicReactionStage">
+            <div class="molecule-reactant" id="glycoReactant1">
+              <div class="mol-title">α-D-Glucose (Monomer 1)</div>
+              <div class="mol-struct">C1-anomere <span class="highlight-group cooh">−OH</span> (unten)</div>
+            </div>
+            <div class="reaction-plus">+</div>
+            <div class="molecule-reactant" id="glycoReactant2">
+              <div class="mol-title">D-Glucose (Monomer 2)</div>
+              <div class="mol-struct">C4-alkoholische <span class="highlight-group nh2">HO−</span></div>
+            </div>
+            <div class="reaction-arrow-wrap">
+              <span class="arrow-symbol">⇄</span>
+              <span class="arrow-cond">− H₂O (Kondensation)</span>
+            </div>
+            <div class="molecule-product">
+              <div class="mol-title">Disaccharid: Maltose</div>
+              <div class="mol-struct"><span class="highlight-peptide-bond">α-1,4-glykosidische Bindung</span></div>
+            </div>
+          </div>
+
+          <div class="info-alert">
+            <strong>Wichtige Disaccharide im Überblick:</strong>
+            <ul>
+              <li><strong>Maltose (Malzzucker):</strong> α-D-Glucose + D-Glucose über α-1,4-glykosidische Bindung
+                (reduzierend!).</li>
+              <li><strong>Saccharose (Haushaltszucker):</strong> α-D-Glucose + β-D-Fructose über α-1,β-2-glykosidische
+                Bindung (nicht reduzierend!).</li>
+              <li><strong>Lactose (Milchzucker):</strong> β-D-Galactose + D-Glucose über β-1,4-glykosidische Bindung
+                (reduzierend).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 3: Polysaccharide – Die Bestandteile der Stärke -->
+      <div class="card content-card">
+        <div class="card-header-badge">Stufe 3 • Pflanzliche Hydrokolloide</div>
+        <h3>Polysaccharide: Amylose vs. Amylopektin</h3>
+        <p>
+          Pflanzliche Stärke besteht aus zwei Makromolekül-Typen mit völlig unterschiedlicher Verknüpfung und
+          Raumstruktur:
+        </p>
+
+        <div class="polysaccharide-compare-grid">
+          <div class="poly-card amylose-card">
+            <div class="poly-badge">ca. 20–30 % der Stärke</div>
+            <h4>Amylose (Linear &amp; Helikal)</h4>
+
+            <div class="struct-img-wrapper" style="margin: 0.75rem 0;">
+              <img src="assets/amylose_struktur.png" alt="Struktur der Amylose mit α-1,4-glykosidischen Bindungen" class="struct-img">
+            </div>
+
+            <ul>
+              <li><strong>Verknüpfung:</strong> Rein <strong>α-1,4-glykosidisch</strong> unverzweigt (ca. 100 bis 4.500
+                Glucose-Einheiten).</li>
+              <li><strong>Raumstruktur:</strong> Durch die abgewinkelte α-1,4-Bindung rollt sich die Kette zu einer
+                <strong>linksgängigen Helix</strong> (Schraube) auf.
+              </li>
+              <li><strong>Nachweis:</strong> Polyiodid-Ionen (I₃⁻, I₅⁻) lagern sich im Inneren der Helix ein
+                (Einschlussverbindung) → intensive <strong>tiefblaue Färbung (Iod-Stärke-Probe)</strong>.</li>
+              <li><strong>Gel-Bildung:</strong> Beim Abkühlen lagern sich lineare Ketten über Wasserstoffbrücken
+                parallel an (Retrogradation) und bilden feste Gele.</li>
+            </ul>
+          </div>
+
+          <div class="poly-card amylopectin-card">
+            <div class="poly-badge">ca. 70–80 % der Stärke</div>
+            <h4>Amylopektin (Stark Verzweigt)</h4>
+
+            <div class="struct-img-wrapper" style="margin: 0.75rem 0;">
+              <img src="assets/amylopektin_struktur.png" alt="Ausschnitt aus einem Amylopektinpolymer in Haworth-Schreibweise mit Verzweigung" class="struct-img">
+            </div>
+
+            <ul>
+              <li><strong>Verknüpfung:</strong> Hauptkette <strong>α-1,4-glykosidisch</strong>, zusätzlich alle 24–30
+                Monomere eine <strong>α-1,6-glykosidische Verzweigung</strong> (über die C6-Hydroxymethylgruppe).</li>
+              <li><strong>Raumstruktur:</strong> Riesiges, baumartig verzweigtes Riesenmolekül (bis zu 100.000
+                Glucose-Einheiten, eines der größten Naturstoffmoleküle überhaupt!).</li>
+              <li><strong>Nachweis:</strong> Bildet mit Iod nur rötlich-violette Färbungen (kurze Helix-Segmente).</li>
+              <li><strong>Gel-Eigenschaft:</strong> Verhindert durch die sperrige Verzweigung ein zu starkes Verklumpen
+                und sorgt für zähflüssigen, stabilen Kleister.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch-illustration-box">
+          <h4>Schematische Gegenüberstellung der Verknüpfung:</h4>
+          <div class="chain-comparison-visual">
+            <div class="chain-item">
+              <span class="chain-name">Amylose:</span>
+              <div class="chain-diagram amylose-chain">
+                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                <span class="ring-node">G</span> ... (lineare Kette / Helix)
+              </div>
+            </div>
+            <div class="chain-item">
+              <span class="chain-name">Amylopektin:</span>
+              <div class="chain-diagram amylopectin-chain">
+                <div class="branch-top">
+                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                  <span class="ring-node">G</span> (Seitenast)
+                </div>
+                <div class="branch-connector">| α-1,6</div>
+                <div class="branch-main">
+                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
+                  <span class="ring-node">G</span> (Hauptstrang)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MODUL SYNTHESE: Molekularer Direktvergleich (Proteine vs. Kohlenhydrate)  -->
+    <!-- ========================================================================= -->
+    <section id="modul-synthese" class="module-section">
+      <div class="module-hero">
+        <div class="hero-badge">Synthese &amp; Struktur-Eigenschafts-Beziehung</div>
+        <h2>Der molekulare Direktvergleich: Proteine vs. Kohlenhydrate</h2>
+        <p class="hero-desc">
+          Warum verhält sich Gelatine so anders als pflanzliche Gelbildner?
+          Die Erklärung liegt in den grundlegend verschiedenen chemischen Bindungen und zwischenmolekularen Kräften.
+        </p>
+      </div>
+
+      <!-- Große Vergleichstabelle -->
+      <div class="card comparison-table-card">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Merkmal / Kriterium</th>
+              <th>Proteine (Beispiel Gelatine)</th>
+              <th>Kohlenhydrate (Beispiel Stärke / Pflanzl. Gele)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Monomere Bausteine</strong></td>
+              <td>20 verschiedene 2-Aminosäuren (polare, unpolare, saure, basische Reste)</td>
+              <td>Monosaccharide (hauptsächlich D-Glucose-Einheiten mit identischen OH-Gruppen)</td>
+            </tr>
+            <tr>
+              <td><strong>Chemische Hauptbindung</strong></td>
+              <td><strong>Peptidbindung (-CO-NH-)</strong><br>Planarer Carbonsäureamid-Charakter</td>
+              <td><strong>Glykosidische Bindung (-O-)</strong><br>Acetal-Bindung zwischen Ringkohlenstoffen</td>
+            </tr>
+            <tr>
+              <td><strong>Verknüpfungs-Reaktion</strong></td>
+              <td>Kondensationsreaktion (Wasserabspaltung) zwischen -COOH und -NH₂</td>
+              <td>Kondensationsreaktion (Wasserabspaltung) zwischen zwei -OH-Gruppen</td>
+            </tr>
+            <tr>
+              <td><strong>Räumliche Struktur</strong></td>
+              <td>Komplexe 3D-Faltung: Kollagen-Tripelhelices, α-Helices, β-Faltblätter, globuläre Knäuel</td>
+              <td>Regelmäßige Helices (Amylose) oder stark baumartige Verzweigungen (Amylopektin)</td>
+            </tr>
+            <tr>
+              <td><strong>Strukturstabilisierende Kräfte</strong></td>
+              <td>Wasserstoffbrücken, Ionenbindungen (Salzbrücken), Disulfidbrücken, London-Wechselwirkungen</td>
+              <td>Fast ausschließlich dichte Netzwerke aus <strong>Wasserstoffbrückenbindungen</strong> zwischen
+                OH-Gruppen</td>
+            </tr>
+            <tr>
+              <td><strong>Gemeinsamer Gelbildungs-Mechanismus</strong></td>
+              <td>Polypeptidstränge verknäulen beim Abkühlen zu einem weitmaschigen dreidimensionalen Netzwerk und immobilisieren Wassermoleküle über Wasserstoffbrücken.</td>
+              <td>Polysaccharidketten lagern sich netzartig aneinander an und schließen freie Wassermoleküle ebenfalls über dichte Wasserstoffbrücken ein.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Synthese: Zwei Wege zum selben Phänomen -->
+      <div class="card content-card">
+        <h3>Zwei unterschiedliche Molekülwelten – derselbe makroskopische Effekt</h3>
+        <p>
+          Obwohl Proteine und Kohlenhydrate chemisch grundlegend verschieden aufgebaut sind, führen beide Makromoleküle zum selben Phänomen: <strong>der Bildung eines elastischen Gels</strong>.
+        </p>
+        <div class="theory-grid" style="margin-top: 1.25rem;">
+          <div class="card theory-card" style="margin-bottom: 0;">
+            <h4 style="color: var(--color-protein); margin-bottom: 0.5rem;">Proteine (Polypeptide)</h4>
+            <p style="font-size: 0.88rem;">
+              Aus 2-Aminosäuren mit planaren <strong>Peptidbindungen</strong> aufgebaut. Die Ketten bilden definierte Faltungsstrukturen aus. Beim Gelieren verknäulen die Stränge zu einem flexiblen, dreidimensionalen Netzwerk.
+            </p>
+          </div>
+          <div class="card theory-card" style="margin-bottom: 0;">
+            <h4 style="color: var(--color-carbo); margin-bottom: 0.5rem;">Kohlenhydrate (Polysaccharide)</h4>
+            <p style="font-size: 0.88rem;">
+              Aus Monosacchariden (wie D-Glucose) über <strong>glykosidische Bindungen</strong> aufgebaut. Lineare oder verzweigte Riesenmoleküle lagern sich über Wasserstoffbrücken zu einem zusammenhängenden Gitter zusammen.
+            </p>
+          </div>
+          <div class="card theory-card" style="margin-bottom: 0;">
+            <h4 style="color: var(--color-accent); margin-bottom: 0.5rem;">Das Gel als disperses System</h4>
+            <p style="font-size: 0.88rem;">
+              In beiden Fällen liegt ein <strong>disperses System</strong> vor: Das feste Makromolekül-Netzwerk fängt ein Vielfaches seiner eigenen Masse an flüssigem Wasser in seinen Poren ein und immobilisiert es.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MODUL DIAGNOSE: Aufgaben nach Bildungsplan BW & Portfolio                  -->
+    <!-- ========================================================================= -->
+    <section id="modul-diagnose" class="module-section">
+      <div class="module-hero">
+        <div class="hero-badge">Diagnose, Kompetenzraster &amp; Klausurvorbereitung</div>
+        <h2>Lernstandssicherung: Bildungsplan 2016 Basisfach (3.3.3 Naturstoffe)</h2>
+        <p class="hero-desc">
+          Überprüfe dein Wissen anhand von offiziellen Bildungsplan-Operatoren
+          (<em>nennen</em>, <em>beschreiben</em>, <em>erklären</em>, <em>begründen</em>, <em>beurteilen</em>)
+          über alle drei Anforderungsbereiche (AFB I bis III).
+          Deine Antworten werden im Browser gespeichert und können als Portfolio ausgedruckt werden!
+        </p>
+      </div>
+
+      <!-- TEIL 1: Formative Interaktive Quiz-Aufgaben (Sofort-Feedback) -->
+      <div class="card content-card">
+        <div class="card-header-badge">Teil 1 • Interaktive Wissensüberprüfung</div>
+        <h3>Multiple-Choice &amp; Struktur-Zuordnung (10 BE)</h3>
+        <p class="subnote">Wähle die chemisch korrekten Aussagen aus. Für jede richtige Antwort erhältst du Punkte.</p>
+
+        <form id="quizForm" class="quiz-container">
+          <!-- Frage 1 (AFB I) -->
+          <div class="quiz-question-box" data-qid="q1" data-points="2">
+            <div class="q-header">
+              <span class="q-num">Frage 1 [AFB I • 2 BE]</span>
+              <span class="q-op">Operator: Nennen / Zuordnen</span>
+            </div>
+            <p class="q-text">
+              Welche funktionellen Gruppen reagieren bei der Verknüpfung zweier Aminosäuren zu einem Dipeptid
+              miteinander?
+            </p>
+            <div class="options-list">
+              <label class="option-label">
+                <input type="radio" name="q1" value="a">
+                <span>Zwei Hydroxygruppen (-OH) unter Bildung einer Etherbindung</span>
+              </label>
+              <label class="option-label" data-correct="true">
+                <input type="radio" name="q1" value="b">
+                <span>Eine Carboxygruppe (-COOH) und eine Aminogruppe (-NH₂) unter Abspaltung von H₂O</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q1" value="c">
+                <span>Eine Aldehydgruppe (-CHO) und eine Aminogruppe (-NH₂) unter Bildung eines Imins</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q1" value="d">
+                <span>Eine Estergruppe und eine Thiolgruppe unter Bildung einer Disulfidbrücke</span>
+              </label>
+            </div>
+            <div class="q-feedback" id="feedback-q1"></div>
+          </div>
+
+          <!-- Frage 2 (AFB I) -->
+          <div class="quiz-question-box" data-qid="q2" data-points="2">
+            <div class="q-header">
+              <span class="q-num">Frage 2 [AFB I • 2 BE]</span>
+              <span class="q-op">Operator: Beschreiben</span>
+            </div>
+            <p class="q-text">
+              Was versteht man unter dem Begriff <em>Chiralität</em> bei der D-Glucose und den natürlichen Aminosäuren?
+            </p>
+            <div class="options-list">
+              <label class="option-label" data-correct="true">
+                <input type="radio" name="q2" value="a">
+                <span>Das Vorhandensein eines Kohlenstoffatoms mit vier unterschiedlichen Substituenten, sodass sich
+                  Bild und Spiegelbild nicht zur Deckung bringen lassen.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q2" value="b">
+                <span>Die Fähigkeit der Moleküle, beliebig viele Wassermoleküle über Wasserstoffbrücken zu
+                  binden.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q2" value="c">
+                <span>Das Phänomen, dass Moleküle in Ringform immer sechs Kohlenstoffatome enthalten.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q2" value="d">
+                <span>Die Drehung um eine kovalente Doppelbindung bei hoher Temperatur.</span>
+              </label>
+            </div>
+            <div class="q-feedback" id="feedback-q2"></div>
+          </div>
+
+          <!-- Frage 3 (AFB II) -->
+          <div class="quiz-question-box" data-qid="q3" data-points="2">
+            <div class="q-header">
+              <span class="q-num">Frage 3 [AFB II • 2 BE]</span>
+              <span class="q-op">Operator: Erklären / Unterscheiden</span>
+            </div>
+            <p class="q-text">
+              Worin unterscheiden sich die beiden Stärke-Bestandteile <strong>Amylose</strong> und
+              <strong>Amylopektin</strong> chemisch?
+            </p>
+            <div class="options-list">
+              <label class="option-label">
+                <input type="radio" name="q3" value="a">
+                <span>Amylose besteht aus Fructose, während Amylopektin aus Galactose aufgebaut ist.</span>
+              </label>
+              <label class="option-label" data-correct="true">
+                <input type="radio" name="q3" value="b">
+                <span>Amylose ist rein α-1,4-glykosidisch unverzweigt; Amylopektin besitzt zusätzlich etwa alle 25
+                  Glucose-Reste α-1,6-glykosidische Verzweigungen.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q3" value="c">
+                <span>Amylose bildet Peptidbindungen aus, während Amylopektin über Ionenbindungen vernetzt ist.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q3" value="d">
+                <span>Amylose ist wasserunlöslich und Amylopektin schmilzt bereits bei 35 °C.</span>
+              </label>
+            </div>
+            <div class="q-feedback" id="feedback-q3"></div>
+          </div>
+
+          <!-- Frage 4 (AFB II) -->
+          <div class="quiz-question-box" data-qid="q4" data-points="2">
+            <div class="q-header">
+              <span class="q-num">Frage 4 [AFB II • 2 BE]</span>
+              <span class="q-op">Operator: Erklären</span>
+            </div>
+            <p class="q-text">
+              Was kennzeichnet den physikalisch-chemischen Zustand eines <strong>Gels</strong> auf Teilchenebene?
+            </p>
+            <div class="options-list">
+              <label class="option-label">
+                <input type="radio" name="q4" value="a">
+                <span>Eine echte homogene Lösung, in der alle Makromoleküle vollständig isoliert und frei beweglich vorliegen.</span>
+              </label>
+              <label class="option-label" data-correct="true">
+                <input type="radio" name="q4" value="b">
+                <span>Ein disperses System, bei dem ein dreidimensionales Makromolekül-Netzwerk flüssiges Wasser über zwischenmolekulare Kräfte immobilisiert.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q4" value="c">
+                <span>Eine chemische Reaktion, bei der Wassermoleküle unter Bildung kovalenter Bindungen verbraucht werden.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q4" value="d">
+                <span>Ein starrer Feststoffkristall, der ausschließlich durch elektrostatische Ionenbindungen zusammengehalten wird.</span>
+              </label>
+            </div>
+            <div class="q-feedback" id="feedback-q4"></div>
+          </div>
+
+          <!-- Frage 5 (AFB II) -->
+          <div class="quiz-question-box" data-qid="q5" data-points="2">
+            <div class="q-header">
+              <span class="q-num">Frage 5 [AFB II • 2 BE]</span>
+              <span class="q-op">Operator: Begründen</span>
+            </div>
+            <p class="q-text">
+              Welche zwischenmolekularen Wechselwirkungen stabilisieren die <strong>Sekundärstruktur</strong> (α-Helix
+              und β-Faltblatt) eines Proteins?
+            </p>
+            <div class="options-list">
+              <label class="option-label" data-correct="true">
+                <input type="radio" name="q5" value="a">
+                <span>Wasserstoffbrückenbindungen zwischen den CO- und NH-Gruppen des Peptidrückgrats.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q5" value="b">
+                <span>Kovalente Disulfidbrücken zwischen benachbarten Cystein-Resten.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q5" value="c">
+                <span>Ausschließlich London-Wechselwirkungen zwischen temporären Dipolen unpolarer Reste.</span>
+              </label>
+              <label class="option-label">
+                <input type="radio" name="q5" value="d">
+                <span>Ionenbindungen zwischen Carboxylat- und Ammonium-Ionen der Seitenketten.</span>
+              </label>
+            </div>
+            <div class="q-feedback" id="feedback-q5"></div>
+          </div>
+
+          <div class="quiz-btn-bar">
+            <button type="button" id="btnSubmitQuiz" class="btn btn-primary">
+              ✓ Quiz auswerten &amp; Punkte speichern
+            </button>
+            <button type="button" id="btnResetQuiz" class="btn btn-outline">
+              🔄 Quiz zurücksetzen
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- TEIL 2: Klausur-Transferaufgaben (Offene Aufgaben mit Erwartungshorizont) -->
+      <div class="card content-card">
+        <div class="card-header-badge">Teil 2 • Klausur-Transfer &amp; Problemlösung</div>
+        <h3>Offene Transferaufgaben nach Bildungsplan BW (15 BE)</h3>
+        <p class="subnote">
+          Bearbeite die Aufgaben schriftlich in den Feldern. Deine Antworten werden automatisch im Browser
+          gespeichert. Anschließend kannst du den offiziellen Erwartungshorizont einblenden und dich selbst bewerten.
+        </p>
+
+        <!-- Transferaufgabe 1 -->
+        <div class="transfer-task-box">
+          <div class="task-head">
+            <h4>Aufgabe 1: Das Gel-Phänomen zweier unterschiedlicher Makromoleküle [AFB II • 5 BE]</h4>
+            <div class="task-ops">Operatoren: <em>beschreiben</em>, <em>vergleichen</em></div>
+          </div>
+          <div class="task-desc">
+            Sowohl mit Gelatine (einem tierischen Protein) als auch mit pflanzlichen Hydrokolloiden (Polysacchariden wie Carrageen oder Stärke)
+            lässt sich aus flüssiger Sahne und Milch eine schnittfeste Panna Cotta zubereiten. Obwohl beide Gelbildner chemisch
+            völlig unterschiedlich aufgebaut sind, führen sie zum selben Phänomen.
+            <br><br>
+            <strong>Aufgabenstellung:</strong>
+            <ol>
+              <li><strong>Beschreibe</strong> den molekularen Aufbau eines Gels und erkläre, wie das flüssige Wasser im Makromolekül-Gitter festgehalten wird. [2 BE]</li>
+              <li><strong>Vergleiche</strong> Proteine und Polysaccharide hinsichtlich ihrer monomeren Bausteine und der kovalenten Bindungsart, die das jeweilige Makromolekül aufbaut. [3 BE]</li>
+            </ol>
+          </div>
+          <textarea id="transferTask1Text" class="task-textarea" rows="5"
+            placeholder="Deine ausführliche Antwort hier eintragen..."></textarea>
+
+          <div class="solution-toggle-wrap">
+            <button class="btn btn-sm btn-outline toggle-sol-btn" data-sol="sol1">
+              👁️ Musterlösung &amp; Kriterien einblenden [5 BE]
+            </button>
+            <div id="sol1" class="solution-box hidden">
+              <h5>Erwartungshorizont / Musterlösung:</h5>
+              <ul>
+                <li><strong>1. Aufbau des Gels [2 BE]:</strong> Ein Gel ist ein disperses System (Flüssigkeit in Feststoff). Die Makromoleküle bilden ein dreidimensionales, zusammenhängendes Netzwerk. Wassermoleküle werden in den Hohlräumen über Dipol-Wechselwirkungen und insbesondere <strong>Wasserstoffbrückenbindungen</strong> immobilisiert.</li>
+                <li><strong>2. Vergleich der Makromoleküle [3 BE]:</strong>
+                  Proteine bestehen aus <strong>2-Aminosäuren</strong>, die über kovalente <strong>Peptidbindungen (-CO-NH-)</strong> verknüpft sind (Carbonsäureamid-Gruppe mit planarem Charakter).
+                  Polysaccharide bestehen aus <strong>Monosacchariden</strong> (z. B. D-Glucose), die über kovalente <strong>glykosidische Bindungen (-C-O-C-)</strong> verknüpft sind (Vollacetal-Gruppe). Beide Makromoleküle können weitmaschige 3D-Netzwerke bilden, die Wasser binden.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transferaufgabe 2 -->
+        <div class="transfer-task-box">
+          <div class="task-head">
+            <h4>Aufgabe 2: Das Kiwi- &amp; Ananas-Dilemma [AFB III • 5 BE]</h4>
+            <div class="task-ops">Operatoren: <em>erklären</em>, <em>beurteilen</em></div>
+          </div>
+          <div class="task-desc">
+            Ein Koch möchte eine Panna Cotta mit frischem Kiwipüree garnieren. Er bemerkt jedoch, dass die Gelatine
+            in Kontakt mit der frischen Kiwi nicht fest wird, sondern flüssig bleibt. Bei Verwendung von gekochtem
+            Kiwipüree oder bei einem pflanzlichen Stärkeprodukt tritt dieses Problem nicht auf.
+            <br><br>
+            <strong>Aufgabenstellung:</strong>
+            <ol>
+              <li><strong>Erkläre</strong> die molekulare Ursache für das Verflüssigen der Gelatine bei frischer Kiwi.
+                [2 BE]</li>
+              <li><strong>Beurteile</strong>, warum das Kochen des Fruchtpürees Abhilfe schafft und warum
+                Stärke/Carrageen nicht beeinträchtigt wird. [3 BE]</li>
+            </ol>
+          </div>
+          <textarea id="transferTask2Text" class="task-textarea" rows="5"
+            placeholder="Deine ausführliche Antwort hier eintragen..."></textarea>
+
+          <div class="solution-toggle-wrap">
+            <button class="btn btn-sm btn-outline toggle-sol-btn" data-sol="sol2">
+              👁️ Musterlösung &amp; Kriterien einblenden [5 BE]
+            </button>
+            <div id="sol2" class="solution-box hidden">
+              <h5>Erwartungshorizont / Musterlösung:</h5>
+              <ul>
+                <li><strong>1. Ursache [2 BE]:</strong> Frische Kiwis enthalten das Enzym Actinidain (eine
+                  Peptidase/Protease). Enzyme wirken als Biokatalysatoren und spalten kovalente
+                  <strong>Peptidbindungen</strong> in den Gelatine-Polypeptiden hydrolytisch. Die entstehenden kurzen
+                  Peptidfragmente sind zu kurz, um ein stabiles 3D-Netzwerk auszubilden.
+                </li>
+                <li><strong>2. Beurteilung [3 BE]:</strong> Durch das Aufkochen des Fruchtpürees wird das Enzym
+                  Actinidain thermisch <strong>denaturiert</strong> (irreversible Zerstörung der Raumstruktur/des
+                  aktiven Zentrums), wodurch es inaktiv wird. Polysaccharid-Gele (Stärke/Carrageen) bestehen aus
+                  glycosidisch verknüpften Zuckern. Proteasen besitzen eine hohe Substratspezifität und können
+                  glykosidische Bindungen chemisch nicht angreifen.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transferaufgabe 3 -->
+        <div class="transfer-task-box">
+          <div class="task-head">
+            <h4>Aufgabe 3: Verknüpfungsreaktionen im Vergleich [AFB II • 5 BE]</h4>
+            <div class="task-ops">Operatoren: <em>darstellen</em>, <em>vergleichen</em></div>
+          </div>
+          <div class="task-desc">
+            Sowohl Proteine als auch Polysaccharide entstehen durch Kondensationsreaktionen unter Abspaltung von Wasser.
+            <br><br>
+            <strong>Aufgabenstellung:</strong>
+            <ol>
+              <li><strong>Formuliere</strong> die Reaktionsgleichung in Strukturformel-Ausschnitten für die Verknüpfung
+                zweier α-D-Glucose-Moleküle zur Maltose und benenne die Bindungsart exakt. [3 BE]</li>
+              <li><strong>Vergleiche</strong> die funktionelle Gruppe der Peptidbindung mit der glykosidischen Bindung
+                hinsichtlich Polarität und Hydrolyseanfälligkeit. [2 BE]</li>
+            </ol>
+          </div>
+          <textarea id="transferTask3Text" class="task-textarea" rows="5"
+            placeholder="Deine ausführliche Antwort hier eintragen..."></textarea>
+
+          <div class="solution-toggle-wrap">
+            <button class="btn btn-sm btn-outline toggle-sol-btn" data-sol="sol3">
+              👁️ Musterlösung &amp; Kriterien einblenden [5 BE]
+            </button>
+            <div id="sol3" class="solution-box hidden">
+              <h5>Erwartungshorizont / Musterlösung:</h5>
+              <ul>
+                <li><strong>1. Reaktionsgleichung [3 BE]:</strong> α-D-Glucopyranose + D-Glucopyranose → Maltose
+                  (4-O-α-D-Glucopyranosyl-D-glucopyranose) + H₂O. Bindung: <strong>α-1,4-glykosidische Bindung</strong>
+                  (Vollacetal).</li>
+                <li><strong>2. Vergleich [2 BE]:</strong> Die Peptidbindung (-CO-NH-) ist eine stark polare
+                  Carbonsäureamid-Gruppe mit partiellem Doppelbindungscharakter, planarer Geometrie und ausgeprägter
+                  Fähigkeit als H-Brücken-Donator und -Akzeptor. Die glykosidische Bindung (-C-O-C-) ist eine
+                  Acetal-/Etherbindung, weniger polar, aber säureempfindlich (säurekatalysierte Hydrolyse).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEIL 3: Selbstevaluationsraster nach Bildungsplan BW -->
+      <div class="card content-card">
+        <div class="card-header-badge">Teil 3 • Kompetenzraster</div>
+        <h3>Kompetenzraster: Inhaltsbezogene Kompetenzen 3.3.3 Naturstoffe</h3>
+        <p class="subnote">
+          Schätze deinen Lernerfolg ehrlich ein. Klicke auf die jeweilige Ampelfarbe (Grün = sicher, Gelb = noch
+          unsicher, Rot = Förderbedarf).
+        </p>
+
+        <div class="competence-grid">
+          <div class="comp-row" data-cid="c1">
+            <div class="comp-text">
+              <strong>BP 3.3.3 (3):</strong> Ich kann die Molekülstruktur von Monosacchariden und Aminosäuren erklären
+              (Chiralität, Fischer- und Haworth-Projektion, funktionelle Gruppen).
+            </div>
+            <div class="comp-eval-btns">
+              <button class="comp-btn btn-green" data-val="green" title="Sicher verstanden">🟢</button>
+              <button class="comp-btn btn-yellow" data-val="yellow" title="Teilweise verstanden">🟡</button>
+              <button class="comp-btn btn-red" data-val="red" title="Wiederholungsbedarf">🔴</button>
+            </div>
+          </div>
+
+          <div class="comp-row" data-cid="c2">
+            <div class="comp-text">
+              <strong>BP 3.3.3 (4):</strong> Ich kann die Verknüpfung von Monomeren zu einem Disaccharid (glykosidische
+              Bindung) bzw. einem Dipeptid (Peptidbindung) und den entsprechenden Makromolekülen erklären.
+            </div>
+            <div class="comp-eval-btns">
+              <button class="comp-btn btn-green" data-val="green" title="Sicher verstanden">🟢</button>
+              <button class="comp-btn btn-yellow" data-val="yellow" title="Teilweise verstanden">🟡</button>
+              <button class="comp-btn btn-red" data-val="red" title="Wiederholungsbedarf">🔴</button>
+            </div>
+          </div>
+
+          <div class="comp-row" data-cid="c3">
+            <div class="comp-text">
+              <strong>Struktur &amp; Gelbildung:</strong> Ich kann den physikalischen Zustand eines Gels als 3D-Makromolekül-Netzwerk mit Wassereinschluss beschreiben und erklären, wie zwei chemisch grundverschiedene Makromolekülklassen (Proteine und Kohlenhydrate) diesen Effekt hervorrufen.
+            </div>
+            <div class="comp-eval-btns">
+              <button class="comp-btn btn-green" data-val="green" title="Sicher verstanden">🟢</button>
+              <button class="comp-btn btn-yellow" data-val="yellow" title="Teilweise verstanden">🟡</button>
+              <button class="comp-btn btn-red" data-val="red" title="Wiederholungsbedarf">🔴</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio-Export-Aktion -->
+        <div class="portfolio-export-box">
+          <div class="export-desc">
+            <h4>Dein Leistungsnachweis ist bereit</h4>
+            <p>
+              Sobald du deine Aufgaben bearbeitet und dich eingeschätzt hast, klicke auf
+              <strong>„Portfolio drucken / als PDF speichern“</strong>.
+              Es wird ein offiziell formatiertes A4-Dokument mit deiner Punktzahl, deinen Freitexten
+              und dem Kompetenzprofil für deine Lehrkraft erzeugt.
+            </p>
+          </div>
+          <button id="btnGeneratePortfolio" class="btn btn-primary btn-lg">
+            🖨️ Portfolio drucken / als PDF speichern
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Print-Footer mit Unterschriftenfeld -->
+  <footer class="print-footer">
+    <div class="signature-line-wrap">
+      <div class="signature-box">
+        <div class="sig-line"></div>
+        <p>Datum &amp; Unterschrift Schülerin / Schüler</p>
+      </div>
+      <div class="signature-box">
+        <div class="sig-line"></div>
+        <p>Gesehen / Bewertung Fachlehrkraft Chemie</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

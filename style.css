@@ -1,0 +1,1776 @@
+/* ==========================================================================
+   Design System & Theme Variables
+   Modern Food-Science & Molecular Aesthetics (Dark & Light Mode)
+   Schule Birklehof – Kursstufe Chemie Basisfach
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Light Mode (Default) */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.72);
+  --border-color: #e2e8f0;
+  --border-focus: #3b82f6;
+
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-dim: #94a3b8;
+
+  /* Brand Accents: Panna Cotta Cream, Amber, Navy & Molecular Violet */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #eff6ff;
+  --color-accent: #d97706;        /* Warm Cotta Amber */
+  --color-accent-light: #fffbeb;
+  --color-protein: #0284c7;       /* Sky Blue / Peptide */
+  --color-protein-bg: #f0f9ff;
+  --color-carbo: #16a34a;         /* Plant Green / Polysaccharide */
+  --color-carbo-bg: #f0fdf4;
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Shadows & Radius */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  --transition-normal: 0.22s ease-in-out;
+  --max-width: 1240px;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.85);
+  --bg-card-hover: #334155;
+  --bg-glass: rgba(30, 41, 59, 0.72);
+  --border-color: #334155;
+  --border-focus: #60a5fa;
+
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-text-dim: #64748b;
+
+  --color-primary: #3b82f6;
+  --color-primary-hover: #60a5fa;
+  --color-primary-light: #1e3a8a;
+  --color-accent: #f59e0b;
+  --color-accent-light: #451a03;
+  --color-protein: #38bdf8;
+  --color-protein-bg: #082f49;
+  --color-carbo: #4ade80;
+  --color-carbo-bg: #052e16;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Global Reset & Base
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Print Only Headers & Footers (Hidden on Screen) */
+.print-header,
+.print-footer {
+  display: none;
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition-normal), border-color var(--transition-normal);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, var(--color-primary), #6366f1);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.brand-text h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.brand-text .subtitle {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+/* Header User Controls */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.user-meta-inputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user-meta-inputs input {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--color-text);
+  outline: none;
+  width: 140px;
+  transition: border-color var(--transition-normal);
+}
+
+.user-meta-inputs input:focus {
+  border-color: var(--border-focus);
+}
+
+.score-display {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.85rem;
+  background: var(--color-accent-light);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.score-icon {
+  font-size: 1rem;
+}
+
+/* Nav Tabs */
+.main-nav {
+  border-top: 1px solid var(--border-color);
+  background: rgba(248, 250, 252, 0.4);
+}
+
+[data-theme="dark"] .main-nav {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-container::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-main);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+}
+
+.nav-tab:hover {
+  color: var(--color-primary);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.nav-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-pill);
+  background: var(--border-color);
+  color: var(--color-text);
+}
+
+.nav-tab.active .tab-num {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Buttons & UI Elements
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-outline {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-outline.active {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-icon {
+  padding: 0.45rem;
+  border-radius: var(--radius-md);
+}
+
+.btn-protein {
+  background: var(--color-protein-bg);
+  border: 1px solid var(--color-protein);
+  color: var(--color-protein);
+}
+
+.btn-protein:hover {
+  background: var(--color-protein);
+  color: #ffffff;
+}
+
+.btn-carbo {
+  background: var(--color-carbo-bg);
+  border: 1px solid var(--color-carbo);
+  color: var(--color-carbo);
+}
+
+.btn-carbo:hover {
+  background: var(--color-carbo);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Layout & Cards
+   ========================================================================== */
+
+.app-main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.module-section {
+  display: none;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.module-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.module-hero {
+  margin-bottom: 2rem;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.6rem;
+}
+
+.module-hero h2 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  margin-bottom: 0.65rem;
+}
+
+.module-hero .hero-desc {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 860px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-header-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.content-card h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.content-card p {
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Modul 0: Rezept-Grid & Panna Cotta
+   ========================================================================== */
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.recipe-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.protein-card {
+  border-top: 4px solid var(--color-protein);
+}
+
+.carbohydrate-card {
+  border-top: 4px solid var(--color-carbo);
+}
+
+.recipe-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.recipe-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.ingredients-box,
+.steps-box {
+  margin-bottom: 1.25rem;
+}
+
+.recipe-card h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.ingredients-box ul,
+.steps-box ol {
+  padding-left: 1.35rem;
+  font-size: 0.92rem;
+}
+
+.ingredients-box li,
+.steps-box li {
+  margin-bottom: 0.35rem;
+}
+
+.observation-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.obs-icon {
+  font-size: 1.1rem;
+}
+
+.infobox {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.highlight-box {
+  border-left: 5px solid var(--color-accent);
+  background: linear-gradient(135deg, var(--bg-card), var(--color-accent-light));
+}
+
+.infobox-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.infobox-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.branch-selector {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.branch-selector .button-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.65rem;
+}
+
+/* ==========================================================================
+   Modul Sol-Gel: Simulator & Canvas
+   ========================================================================== */
+
+.simulator-wrapper {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .simulator-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.simulator-controls h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.control-group {
+  margin-bottom: 1.35rem;
+}
+
+.control-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.value-badge {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.slider-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  margin-top: 0.35rem;
+}
+
+.radio-pill-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.radio-pill {
+  flex: 1;
+  text-align: center;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.radio-pill input {
+  display: none;
+}
+
+.radio-pill.active {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-group-toggle {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.sim-dashboard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-metric {
+  margin-bottom: 0.65rem;
+}
+
+.dashboard-metric:last-child {
+  margin-bottom: 0;
+}
+
+.metric-label {
+  display: block;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.metric-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.phase-gel {
+  color: var(--color-success);
+}
+
+.phase-sol {
+  color: var(--color-danger);
+}
+
+.viscosity-bar-wrap {
+  width: 100%;
+  height: 8px;
+  background: var(--border-color);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: 0.25rem;
+}
+
+.viscosity-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+.info-callout {
+  padding: 0.85rem;
+  background: var(--color-primary-light);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+}
+
+.info-callout h4 {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+/* Canvas Box */
+.simulator-canvas-container {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.canvas-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.canvas-legend {
+  display: flex;
+  gap: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-polymer { background: #3b82f6; }
+.dot-water { background: #38bdf8; }
+.dot-hbond { background: #f59e0b; }
+
+#solGelCanvas {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  background: #0f172a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.canvas-footer-tip {
+  margin-top: 0.65rem;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+.theory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.theory-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.theory-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Modul A: Proteine
+   ========================================================================== */
+
+.amino-acid-formula-wrap {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .amino-acid-formula-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formula-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-chem-atom {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.svg-label {
+  font-family: var(--font-main);
+  font-size: 11px;
+  fill: var(--color-text-muted);
+  text-anchor: middle;
+}
+
+.formula-explanation ul {
+  padding-left: 1.25rem;
+  font-size: 0.92rem;
+}
+
+.formula-explanation li {
+  margin-bottom: 0.5rem;
+}
+
+/* Reaction Interactive Stage */
+.reaction-interactive-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.reaction-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
+}
+
+.molecule-reactant,
+.molecule-product {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.mol-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.mol-struct {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.highlight-group {
+  padding: 0.15rem 0.35rem;
+  border-radius: var(--radius-sm);
+}
+
+.highlight-group.cooh {
+  background: rgba(220, 38, 38, 0.15);
+  color: var(--color-danger);
+}
+
+.highlight-group.nh2 {
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--color-primary);
+}
+
+.highlight-peptide-bond {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.2), rgba(168, 85, 247, 0.2));
+  border: 1px dashed var(--color-primary);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+}
+
+.reaction-plus {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-text-dim);
+}
+
+.reaction-arrow-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow-symbol {
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.arrow-cond {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.reaction-action-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.info-alert {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--color-accent-light);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+}
+
+/* Strukturebenen Tabs */
+.structure-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.struct-tab {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  font-family: var(--font-main);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.struct-tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.struct-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.structure-display-area {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.struct-view-box h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+
+.struct-view-box p {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.struct-graphic {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Struktur-Bilder für Sekundär- und Tertiärstruktur */
+.struct-image-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-top: 1rem;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-img-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.struct-img-wrapper {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 0.85rem;
+}
+
+.struct-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  transition: transform 0.25s ease;
+}
+
+.struct-img:hover {
+  transform: scale(1.02);
+}
+
+.struct-img-caption {
+  font-size: 0.88rem;
+  color: var(--color-text);
+  line-height: 1.5;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--color-primary);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.struct-img-caption ul {
+  padding-left: 1.25rem;
+  margin-top: 0.4rem;
+}
+
+.struct-img-caption li {
+  margin-bottom: 0.25rem;
+}
+
+.struct-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+/* Wechselwirkungs-Karten */
+.interactions-detail-box h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+.interaction-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.inter-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.inter-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.4rem;
+}
+
+.badge-covalent { background: #fee2e2; color: #dc2626; }
+.badge-ionic { background: #fef3c7; color: #d97706; }
+.badge-hbond { background: #e0f2fe; color: #0284c7; }
+.badge-london { background: #f3e8ff; color: #7e22ce; }
+
+.inter-card h5 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.inter-card p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0;
+}
+
+.denaturation-box {
+  background: var(--color-accent-light);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.denaturation-box h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.45rem;
+}
+
+.practical-tip {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed rgba(217, 119, 6, 0.3);
+  font-size: 0.88rem;
+}
+
+/* ==========================================================================
+   Modul B: Kohlenhydrate
+   ========================================================================== */
+
+.wiki-link {
+  color: var(--color-carbo);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.ring-closure-interactive {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.toggle-control-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.toggle-control-box span {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.structure-diagram-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.sugar-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.fact-item {
+  font-size: 0.84rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+}
+
+.glycosidic-interactive-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+/* Polysaccharid Vergleich */
+.polysaccharide-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.poly-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.amylose-card { border-top: 4px solid #0284c7; }
+.amylopectin-card { border-top: 4px solid #16a34a; }
+
+.poly-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.poly-card h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.poly-card ul {
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.poly-card li {
+  margin-bottom: 0.5rem;
+}
+
+.branch-illustration-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.branch-illustration-box h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+.chain-comparison-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.chain-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.chain-name {
+  font-weight: 700;
+  width: 110px;
+  font-size: 0.88rem;
+}
+
+.ring-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--color-carbo);
+  color: #ffffff;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.bond-line {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  margin: 0 0.25rem;
+  font-family: var(--font-mono);
+}
+
+.branch-top,
+.branch-main {
+  display: flex;
+  align-items: center;
+}
+
+.branch-connector {
+  padding-left: 2.5rem;
+  font-size: 0.75rem;
+  color: var(--color-danger);
+  font-weight: bold;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   Modul Synthese: Vergleichstabelle & Accordion
+   ========================================================================== */
+
+.comparison-table-card {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.comparison-table th {
+  background: var(--bg-secondary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.comparison-table tbody tr:hover {
+  background: rgba(37, 99, 235, 0.02);
+}
+
+.accordion-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.accordion-header {
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.accordion-header::-webkit-details-marker {
+  display: none;
+}
+
+.acc-chevron {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+details[open] .acc-chevron {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Modul Diagnose: Quiz, Transfer & Portfolio
+   ========================================================================== */
+
+.subnote {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.quiz-question-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s ease;
+}
+
+.q-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.q-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.q-op {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.q-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.85rem;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.option-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: all var(--transition-normal);
+}
+
+.option-label:hover {
+  background: var(--bg-secondary);
+  border-color: var(--color-primary);
+}
+
+.option-label.is-correct {
+  background: rgba(22, 163, 74, 0.15);
+  border-color: var(--color-success);
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.option-label.is-wrong {
+  background: rgba(220, 38, 38, 0.12);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.q-feedback {
+  margin-top: 0.75rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  display: none;
+}
+
+.q-feedback.visible {
+  display: block;
+}
+
+.quiz-btn-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* Offene Transferaufgaben */
+.transfer-task-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.task-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.task-head h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.task-ops {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.task-desc {
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+
+.task-desc ol {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.task-textarea {
+  width: 100%;
+  padding: 0.85rem;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  background: var(--bg-card);
+  color: var(--color-text);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition-normal);
+  margin-bottom: 0.85rem;
+}
+
+.task-textarea:focus {
+  border-color: var(--border-focus);
+}
+
+.solution-box {
+  margin-top: 0.85rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+}
+
+.solution-box.hidden {
+  display: none;
+}
+
+.solution-box h5 {
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.solution-box ul {
+  padding-left: 1.25rem;
+}
+
+.solution-box li {
+  margin-bottom: 0.5rem;
+}
+
+/* Kompetenzraster */
+.competence-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.comp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+}
+
+.comp-text {
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.comp-eval-btns {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.comp-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.comp-btn:hover {
+  transform: scale(1.15);
+}
+
+.comp-btn.selected {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.portfolio-export-box {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--color-primary-light));
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.export-desc h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.export-desc p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Print-Layout (PDF-Portfolio für Birklehof)
+   ========================================================================== */
+
+@media print {
+  /* Globale Print-Einstellungen */
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .app-header,
+  .main-nav,
+  .btn,
+  .simulator-wrapper,
+  .branch-selector,
+  .quiz-btn-bar,
+  .solution-toggle-wrap button,
+  .portfolio-export-box {
+    display: none !important;
+  }
+
+  /* Alle Module sichtbar machen für vollständigen Ausdruck */
+  .module-section {
+    display: block !important;
+    page-break-after: always;
+  }
+
+  .card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    page-break-inside: avoid;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .print-header {
+    display: block !important;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .print-school-meta h2 {
+    font-size: 13pt;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .print-school-meta p {
+    font-size: 9pt;
+    color: #444;
+  }
+
+  .print-school-meta h1 {
+    font-size: 16pt;
+    margin-top: 0.5rem;
+  }
+
+  .print-student-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ccc;
+    font-size: 9.5pt;
+  }
+
+  .solution-box {
+    display: block !important;
+    border: 1px solid #666 !important;
+    background: #fafafa !important;
+    margin-top: 0.5rem;
+  }
+
+  .task-textarea {
+    border: 1px solid #000 !important;
+    background: transparent !important;
+    color: #000 !important;
+  }
+
+  .print-footer {
+    display: block !important;
+    margin-top: 3rem;
+    page-break-inside: avoid;
+  }
+
+  .signature-line-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  .sig-line {
+    border-bottom: 1px solid #000;
+    height: 40px;
+    margin-bottom: 0.4rem;
+  }
+
+  .signature-box p {
+    font-size: 8.5pt;
+    text-align: center;
+    color: #333;
+  }
+}
