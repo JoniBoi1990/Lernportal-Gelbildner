@@ -194,14 +194,13 @@
     <!-- ========================================================================= -->
     <section id="modul-solgel" class="module-section">
       <div class="module-hero">
-        <div class="hero-badge">Interaktive Physik &amp; Physikalische Chemie</div>
-        <h2>Der Sol-Gel-Übergang: Wie Flüssigkeiten fest werden</h2>
+        <div class="hero-badge">Physikalische Chemie &amp; Nanostruktur</div>
+        <h2>Der Sol-Gel-Übergang: Verknäulung &amp; Hydratisierung</h2>
         <p class="hero-desc">
-          Ein Gel ist ein <em>disperses System</em> aus mindestens zwei Komponenten: Ein dreidimensionales
-          Makromolekül-Netzwerk
-          (die feste Phase) schließt ein enormes Volumen an flüssigem Wasser ein. Verändere die Temperatur und
-          beobachte,
-          wie sich die Ketten verhalten!
+          Ein Gel ist ein <em>disperses System</em> aus Makromolekülen und Wasser: Flexible Polymerketten verknäulen
+          sich beim Abkühlen zu einem elastischen <strong>dreidimensionalen Netzwerk</strong>. Durch <strong>Hydratisierung</strong>
+          lagern sich Wassermoleküle fest über Wasserstoffbrücken an die polaren Gruppen der Ketten an, während das Maschenwerk
+          zusätzlich enormes Flüssigkeitsvolumen immobilisiert.
         </p>
       </div>
 
@@ -218,56 +217,62 @@
             <input type="range" id="tempSlider" min="0" max="90" value="20" step="1">
             <div class="slider-marks">
               <span>0 °C (Kühlschrank)</span>
-              <span>40 °C (Körpertemp.)</span>
-              <span>60 °C</span>
-              <span>90 °C (Kochen)</span>
+              <span>40 °C (Sol-Gel-Schwelle)</span>
+              <span>60 °C (Sol)</span>
+              <span>90 °C (Heiß)</span>
             </div>
           </div>
 
           <div class="control-group">
-            <label>Gel-Typ auswählen:</label>
+            <label>Betrachtungs-Fokus:</label>
             <div class="radio-pill-group">
               <label class="radio-pill active">
-                <input type="radio" name="gelType" value="gelatine" checked> Gelatine (Protein)
+                <input type="radio" name="viewMode" value="all" checked> Gesamtansicht
               </label>
               <label class="radio-pill">
-                <input type="radio" name="gelType" value="polysaccharid"> Pflanzl. Hydrokolloid
+                <input type="radio" name="viewMode" value="network"> 🕸️ Netz-Struktur
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="viewMode" value="hydration"> 💧 Hydratisierung
               </label>
             </div>
           </div>
 
           <div class="control-group">
-            <label>Ansichts-Modus:</label>
+            <label>Interaktive Hervorhebungen:</label>
             <div class="btn-group-toggle">
-              <button id="toggleWaterBtn" class="btn btn-sm btn-outline active">Wassermoleküle anzeigen</button>
-              <button id="toggleHBondsBtn" class="btn btn-sm btn-outline active">H-Brücken hervorheben</button>
+              <button id="toggleHydrationBtn" class="btn btn-sm btn-outline active" title="Hydrathülle und H-Brücken zwischen Polymer und Wasser anzeigen">💧 Hydrathülle</button>
+              <button id="toggleJunctionsBtn" class="btn btn-sm btn-outline active" title="Verknäulungsknoten (Junction Zones) hervorheben">🕸️ Verknäulung</button>
+              <button id="toggleWaterBtn" class="btn btn-sm btn-outline active" title="Wassermoleküle ein-/ausblenden">🌊 H₂O anzeigen</button>
             </div>
           </div>
 
           <!-- Zustands-Dashboard -->
           <div class="sim-dashboard">
             <div class="dashboard-metric">
-              <span class="metric-label">Aggregatzustand / Phase:</span>
-              <span id="phaseDisplay" class="metric-value phase-gel">Elastisches GEL</span>
+              <span class="metric-label">System-Zustand (Makroskopisch):</span>
+              <span id="phaseDisplay" class="metric-value phase-gel">Elastisches 3D-GEL</span>
             </div>
             <div class="dashboard-metric">
-              <span class="metric-label">Viskosität (Zähigkeit):</span>
-              <div class="viscosity-bar-wrap">
-                <div id="viscosityBar" class="viscosity-bar" style="width: 85%;"></div>
+              <span class="metric-label">Verknäulungsgrad (Netz-Struktur):</span>
+              <div class="metric-progress-row">
+                <div class="viscosity-bar-wrap">
+                  <div id="networkDegreeBar" class="viscosity-bar" style="width: 86%;"></div>
+                </div>
+                <span id="networkDegreeText" class="metric-subval">86 %</span>
               </div>
             </div>
             <div class="dashboard-metric">
-              <span class="metric-label">Freie Wassermobilität:</span>
-              <span id="waterMobilityDisplay" class="metric-value">Gering (stark immobilisiert)</span>
+              <span class="metric-label">Hydratisierung &amp; Wasserbindung:</span>
+              <span id="hydrationStatusDisplay" class="metric-value">Starke Hydrathülle (Wasser immobilisiert)</span>
             </div>
           </div>
 
           <div class="info-callout">
-            <h4 id="simExplanationTitle">Gelatine-Netzwerk bei 20 °C</h4>
+            <h4 id="simExplanationTitle">Polymernetzwerk &amp; Hydratisierung bei 20 °C</h4>
             <p id="simExplanationText">
-              Die Polypeptidketten haben sich beim Abkühlen partiell zu Tripelhelices verdrillt und bilden über
-              Wasserstoffbrückenbindungen ein kontinuierliches 3D-Netzwerk. Wassermoleküle werden in den Maschen
-              gefangen.
+              Die Polymerketten sind zu einem elastischen 3D-Netzwerk verknäult (Verknüpfungsknoten über Wasserstoffbrücken).
+              Durch Hydratisierung bilden Wassermoleküle eine feste Hülle um die polaren Kettensegmente, während freies Wasser in den Maschen immobilisiert wird.
             </p>
           </div>
         </div>
@@ -275,16 +280,17 @@
         <!-- Canvas Visualisierung -->
         <div class="simulator-canvas-container card">
           <div class="canvas-header">
-            <div class="canvas-title">Molekulare Mikroskopie (Schematische 2D-Partikelsimulation)</div>
+            <div class="canvas-title">Molekulare Mikroskopie (Netz-Struktur &amp; Hydratisierung)</div>
             <div class="canvas-legend">
               <span class="legend-item"><span class="legend-dot dot-polymer"></span> Polymerkette</span>
+              <span class="legend-item"><span class="legend-dot dot-junction"></span> Verknäulungsknoten</span>
+              <span class="legend-item"><span class="legend-dot dot-hydration"></span> Hydrathülle (H-Brücken)</span>
               <span class="legend-item"><span class="legend-dot dot-water"></span> H₂O-Moleküle</span>
-              <span class="legend-item"><span class="legend-dot dot-hbond"></span> H-Brücke</span>
             </div>
           </div>
           <canvas id="solGelCanvas" width="600" height="450"></canvas>
           <div class="canvas-footer-tip">
-            Tipp: Verändere den Temperaturregler, um den Übergang zwischen geordnetem Netzwerk (Gel) und frei beweglichen Knäueln (Sol) zu beobachten!
+            💡 <strong>Tipp:</strong> Klicke und ziehe mit der Maus im Canvas: Im <strong>Gel</strong> dehnst du das elastische Netzwerk (viskoelastische Rückfederung); im <strong>Sol</strong> strömen die gelösten Ketten und das Wasser wie in einer Flüssigkeit frei davon!
           </div>
         </div>
       </div>
@@ -294,25 +300,34 @@
         <div class="card theory-card">
           <h3>1. Was ist ein Sol? (Flüssige Dispersion)</h3>
           <p>
-            Bei hoher thermischer Energie bewegen sich die Makromoleküle so intensiv, dass intramolekulare und
-            intermolekulare Wechselwirkungen ständig aufbrechen. Die Polymerketten liegen als ungebundene,
-            bewegliche Knäuel vor. Die Flüssigkeit fließt frei (geringe Viskosität).
+            Bei höherer Temperatur (> 40–45 °C) ist die thermische kinetische Energie größer als die schwachen
+            zwischenmolekularen Kräfte. Die Makromoleküle bewegen sich frei als ungeordnete, isolierte Knäuel.
+            Es existiert kein zusammenhängendes Gerüst: Das System ist eine fließfähige Flüssigkeit (Sol).
           </p>
         </div>
         <div class="card theory-card">
-          <h3>2. Was ist ein Gel? (Elastischer Festkörper)</h3>
+          <h3>2. Verknäulung zur Netz-Struktur</h3>
           <p>
-            Beim Abkühlen sinkt die kinetische Energie der Teilchen. Schwache zwischenmolekulare Kräfte
-            (vor allem <strong>Wasserstoffbrückenbindungen</strong>) überwiegen nun. Die Ketten verknäulen und
-            bilden <em>Junction Zones</em> (Verknüpfungsknoten). Es entsteht ein 3D-Gitter, das Wasser immobilisiert.
+            Beim Abkühlen nimmt die kinetische Bewegung der Teilchen ab. Die Polymerstränge lagern sich aneinander an
+            und bilden über Wasserstoffbrückenbindungen sogenannte <em>Junction Zones</em> (Verknüpfungszonen / Verknäulungsknoten).
+            Aus einzelnen Knäueln wächst ein zusammenhängendes, dreidimensionales Raumnetzwerk.
           </p>
         </div>
         <div class="card theory-card">
-          <h3>3. Synärese: Wenn das Gel altert</h3>
+          <h3>3. Hydratisierung: Wie Wasser gebunden wird</h3>
           <p>
-            Bleibt ein Gel lange stehen oder wird die Temperatur zu tief, ziehen sich die Polymerstränge
-            durch maximale Wechselwirkungsbildung immer enger zusammen. Das Gitter schrumpft und presst
-            freies Wasser an die Oberfläche – das Phänomen, wenn sich auf Joghurt oder Pudding Wasser absetzt.
+            Die Monomerbausteine der Polymerketten tragen zahlreiche polare Gruppen (z. B. −OH, −COOH, −NH₂ oder
+            Peptidbindungen). Diese lagern Dipol-Wassermoleküle über Wasserstoffbrücken an und bilden eine feste
+            <strong>Hydrathülle (Hydratisierung)</strong>. Das übrige flüssige Wasser wird in den Hohlräumen der Maschen
+            mechanisch und elektrostatisch immobilisiert.
+          </p>
+        </div>
+        <div class="card theory-card">
+          <h3>4. Thermoreversibilität &amp; Synärese</h3>
+          <p>
+            Da das Gel-Netzwerk auf nichtkovalenten Kräften (vor allem H-Brücken) beruht, ist der Übergang meist
+            <strong>thermoreversibel</strong>: Erwärmen löst die Knoten zum Sol, Abkühlen stellt das Gel wieder her.
+            Zieht sich das Netzwerk bei langer Lagerung noch enger zusammen (Synärese), presst es freies Wasser heraus.
           </p>
         </div>
       </div>

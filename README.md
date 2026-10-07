@@ -49,9 +49,10 @@ Dieses Lernportal setzt diesen Bildungsplan-Kontext als **dualen Vergleichspfad*
 ## 🔬 Interaktive Kernkomponenten
 
 1. **Sol-Gel-Temperaturlabor (HTML5 Canvas Physik):**
-   * Dynamische Partikelsimulation mit stufenlosem Temperaturregler (0 °C bis 90 °C).
-   * Veranschaulicht Brownsche Molekularbewegung, Verknäulung vs. Entfaltung der Ketten sowie die Immobilisierung von Wassermolekülen in den Maschen.
-   * Visualisiert den Sol-Gel-Übergang beider Makromolekülklassen (Proteine und Polysaccharide) auf Teilchenebene.
+   * Dynamische molekulare Partikelsimulation mit stufenlosem Temperaturregler (0 °C bis 90 °C).
+   * Veranschaulicht, wie sich flexible Polymerketten beim Abkühlen an Verknüpfungszonen (Junction Zones) zu einem elastischen 3D-Netzwerk verknäulen.
+   * Visualisiert das Phänomen der **Hydratisierung**: Anlagerung von Wassermolekülen über Wasserstoffbrücken an polare Gruppen der Ketten (Hydrathülle) sowie mechanisch-elektrostatische Immobilisierung von Wasser in den Hohlräumen der Netz-Struktur.
+   * Interaktive viskoelastische Verformung: Beim Ziehen mit der Maus/Touch federt das Gel-Netzwerk elastisch zurück; im flüssigen Sol weichen die gelösten Ketten und das Wasser hydrodynamisch aus.
 2. **Peptidbindungs- & Proteinstruktur-Baukasten:**
    * Klick-Interaktion zur Kondensationsreaktion von Glycin und Alanin zu Glycylalanin unter Abspaltung von H₂O.
    * Veranschaulichung des planaren Charakters der Peptidbindung (-CO-NH-).

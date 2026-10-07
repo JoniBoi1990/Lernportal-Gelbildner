@@ -120,11 +120,16 @@ function initStudentMeta() {
 
 let simState = {
   temperature: 20,
-  gelType: 'gelatine',
+  viewMode: 'all',          // 'all' | 'network' | 'hydration'
+  showHydration: true,
+  showJunctions: true,
   showWater: true,
-  showHBonds: true,
   chains: [],
-  waterParticles: []
+  junctions: [],
+  waterParticles: [],
+  isDragging: false,
+  dragNode: null,
+  mousePos: { x: 0, y: 0 }
 };
 
 function initSolGelSimulator() {
@@ -134,41 +139,135 @@ function initSolGelSimulator() {
 
   const tempSlider = document.getElementById('tempSlider');
   const tempDisplay = document.getElementById('tempDisplay');
-  const gelTypeRadios = document.querySelectorAll('input[name="gelType"]');
+  const viewModeRadios = document.querySelectorAll('input[name="viewMode"]');
+  const toggleHydrationBtn = document.getElementById('toggleHydrationBtn');
+  const toggleJunctionsBtn = document.getElementById('toggleJunctionsBtn');
   const toggleWaterBtn = document.getElementById('toggleWaterBtn');
-  const toggleHBondsBtn = document.getElementById('toggleHBondsBtn');
 
-  // Initialisiere Polymerketten & Wassermoleküle
+  // Initialisiere Polymerketten, Verknäulungsknoten & Wassermoleküle
   initSimParticles(canvas.width, canvas.height);
 
-  // Event Listener
-  tempSlider.addEventListener('input', (e) => {
-    simState.temperature = parseInt(e.target.value, 10);
-    tempDisplay.textContent = `${simState.temperature} °C`;
-    updateSimDashboard();
-  });
+  // Event Listener: Temperaturregler
+  if (tempSlider) {
+    tempSlider.addEventListener('input', (e) => {
+      simState.temperature = parseInt(e.target.value, 10);
+      if (tempDisplay) tempDisplay.textContent = `${simState.temperature} °C`;
+      updateSimDashboard();
+    });
+  }
 
-  gelTypeRadios.forEach(radio => {
+  // Event Listener: Betrachtungs-Fokus
+  viewModeRadios.forEach(radio => {
     radio.addEventListener('change', (e) => {
-      simState.gelType = e.target.value;
-      document.querySelectorAll('.radio-pill').forEach(pill => {
-        pill.classList.toggle('active', pill.querySelector('input').checked);
+      simState.viewMode = e.target.value;
+      document.querySelectorAll('.radio-pill-group .radio-pill').forEach(pill => {
+        const inp = pill.querySelector('input');
+        pill.classList.toggle('active', inp && inp.checked);
       });
       updateSimDashboard();
     });
   });
 
-  toggleWaterBtn.addEventListener('click', () => {
-    simState.showWater = !simState.showWater;
-    toggleWaterBtn.classList.toggle('active', simState.showWater);
-  });
+  // Event Listener: Umschalter für visuelle Ebenen
+  if (toggleHydrationBtn) {
+    toggleHydrationBtn.addEventListener('click', () => {
+      simState.showHydration = !simState.showHydration;
+      toggleHydrationBtn.classList.toggle('active', simState.showHydration);
+    });
+  }
 
-  toggleHBondsBtn.addEventListener('click', () => {
-    simState.showHBonds = !simState.showHBonds;
-    toggleHBondsBtn.classList.toggle('active', simState.showHBonds);
-  });
+  if (toggleJunctionsBtn) {
+    toggleJunctionsBtn.addEventListener('click', () => {
+      simState.showJunctions = !simState.showJunctions;
+      toggleJunctionsBtn.classList.toggle('active', simState.showJunctions);
+    });
+  }
 
-  // Start Animation Loop
+  if (toggleWaterBtn) {
+    toggleWaterBtn.addEventListener('click', () => {
+      simState.showWater = !simState.showWater;
+      toggleWaterBtn.classList.toggle('active', simState.showWater);
+    });
+  }
+
+  // Interaktivität: Ziehen im Canvas (Elastische Dehnung im Gel vs. Strömung im Sol)
+  function getCanvasCoords(evt) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+    const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY
+    };
+  }
+
+  function handlePointerDown(evt) {
+    simState.isDragging = true;
+    const pos = getCanvasCoords(evt);
+    simState.mousePos = pos;
+
+    // Finde nächsten Polymer-Knoten für elastische Interaktion
+    let closestNode = null;
+    let minDist = 70;
+    simState.chains.forEach(chain => {
+      chain.forEach(node => {
+        const d = Math.hypot(node.x - pos.x, node.y - pos.y);
+        if (d < minDist) {
+          minDist = d;
+          closestNode = node;
+        }
+      });
+    });
+    simState.dragNode = closestNode;
+  }
+
+  function handlePointerMove(evt) {
+    const pos = getCanvasCoords(evt);
+    simState.mousePos = pos;
+
+    if (simState.isDragging) {
+      const T = simState.temperature;
+      if (T >= 42) {
+        // Im Sol: Hydrodynamischer Schub auf alle nahen Ketten und Wassermoleküle
+        const pushRadius = 75;
+        simState.chains.forEach(chain => {
+          chain.forEach(node => {
+            const d = Math.hypot(node.x - pos.x, node.y - pos.y);
+            if (d < pushRadius && d > 1) {
+              const force = (pushRadius - d) / pushRadius * 1.8;
+              node.vx += (node.x - pos.x) / d * force;
+              node.vy += (node.y - pos.y) / d * force;
+            }
+          });
+        });
+        simState.waterParticles.forEach(w => {
+          const d = Math.hypot(w.x - pos.x, w.y - pos.y);
+          if (d < pushRadius && d > 1) {
+            const force = (pushRadius - d) / pushRadius * 2.5;
+            w.vx += (w.x - pos.x) / d * force;
+            w.vy += (w.y - pos.y) / d * force;
+          }
+        });
+      }
+    }
+  }
+
+  function handlePointerUp() {
+    simState.isDragging = false;
+    simState.dragNode = null;
+  }
+
+  canvas.addEventListener('mousedown', handlePointerDown);
+  window.addEventListener('mousemove', handlePointerMove);
+  window.addEventListener('mouseup', handlePointerUp);
+
+  canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handlePointerDown(e); }, { passive: false });
+  window.addEventListener('touchmove', (e) => { handlePointerMove(e); }, { passive: true });
+  window.addEventListener('touchend', handlePointerUp);
+
+  // Animation Loop
   function render() {
     updateAndDrawSimulation(ctx, canvas.width, canvas.height);
     requestAnimationFrame(render);
@@ -179,80 +278,147 @@ function initSolGelSimulator() {
 
 function initSimParticles(width, height) {
   simState.chains = [];
-  const numChains = 7;
-  const nodesPerChain = 9;
+  simState.junctions = [];
 
+  // Wir generieren 6 flexible Polymerketten, die im Gel-Zustand
+  // ein durchgehendes Raumnetzwerk mit Verknäulungszonen aufspannen
+  const numChains = 6;
+  const nodesPerChain = 11;
+
+  // Grundgeometrie des Netzwerks (Schnittpunkte & Maschen)
   for (let c = 0; c < numChains; c++) {
     const chain = [];
-    const startX = 60 + (c % 3) * 160 + (Math.random() - 0.5) * 40;
-    const startY = 50 + Math.floor(c / 3) * 130 + (Math.random() - 0.5) * 30;
+    // Jede Kette schlängelt sich über die Fläche
+    const isHorizontal = c % 2 === 0;
+    const lane = Math.floor(c / 2); // 0, 1, 2
 
     for (let n = 0; n < nodesPerChain; n++) {
+      let bx, by;
+      if (isHorizontal) {
+        bx = 40 + n * ((width - 80) / (nodesPerChain - 1)) + (lane === 1 ? 25 : 0);
+        by = 80 + lane * 140 + Math.sin(n * 0.8 + lane) * 35;
+      } else {
+        bx = 90 + lane * 180 + Math.sin(n * 0.8 + c) * 35;
+        by = 40 + n * ((height - 80) / (nodesPerChain - 1)) + (lane === 1 ? 20 : 0);
+      }
+
       chain.push({
-        x: startX + n * 18 + (Math.random() - 0.5) * 10,
-        y: startY + (Math.random() - 0.5) * 20,
-        baseX: startX + n * 18,
-        baseY: startY,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5
+        x: bx + (Math.random() - 0.5) * 8,
+        y: by + (Math.random() - 0.5) * 8,
+        baseX: bx,
+        baseY: by,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        chainIdx: c,
+        nodeIdx: n,
+        isPolar: true
       });
     }
     simState.chains.push(chain);
   }
 
-  // Wassermoleküle
+  // Definiere die Junction Zones (Verknäulungsknoten) zwischen horizontalen und vertikalen Strängen
+  // Diese Knoten verbinden die Stränge beim Abkühlen zu einem stabilen 3D-Netzwerk
+  const junctionPairs = [
+    // Kette 0 (horiz) kreuzt Ketten 1, 3, 5 (vert)
+    { c1: 0, n1: 2, c2: 1, n2: 1 },
+    { c1: 0, n1: 5, c2: 3, n2: 1 },
+    { c1: 0, n1: 8, c2: 5, n2: 1 },
+    // Kette 2 (horiz) kreuzt Ketten 1, 3, 5 (vert)
+    { c1: 2, n1: 2, c2: 1, n2: 5 },
+    { c1: 2, n1: 5, c2: 3, n2: 5 },
+    { c1: 2, n1: 8, c2: 5, n2: 5 },
+    // Kette 4 (horiz) kreuzt Ketten 1, 3, 5 (vert)
+    { c1: 4, n1: 2, c2: 1, n2: 9 },
+    { c1: 4, n1: 5, c2: 3, n2: 9 },
+    { c1: 4, n1: 8, c2: 5, n2: 9 },
+    // Diagonale Querverknäulungen
+    { c1: 0, n1: 4, c2: 2, n2: 3 },
+    { c1: 2, n1: 6, c2: 4, n2: 7 }
+  ];
+
+  junctionPairs.forEach(pair => {
+    if (simState.chains[pair.c1] && simState.chains[pair.c2]) {
+      const nodeA = simState.chains[pair.c1][pair.n1];
+      const nodeB = simState.chains[pair.c2][pair.n2];
+      if (nodeA && nodeB) {
+        simState.junctions.push({ a: nodeA, b: nodeB });
+      }
+    }
+  });
+
+  // Wassermoleküle generieren (ca. 100 H₂O-Moleküle)
   simState.waterParticles = [];
-  for (let i = 0; i < 70; i++) {
+  const numWater = 95;
+  for (let i = 0; i < numWater; i++) {
     simState.waterParticles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 1.5,
-      vy: (Math.random() - 0.5) * 1.5
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: (Math.random() - 0.5) * 1.2,
+      angle: Math.random() * Math.PI * 2,
+      isHydrated: false,
+      boundNode: null
     });
   }
 }
 
 function updateSimDashboard() {
   const phaseDisplay = document.getElementById('phaseDisplay');
-  const viscosityBar = document.getElementById('viscosityBar');
-  const waterMobilityDisplay = document.getElementById('waterMobilityDisplay');
+  const networkDegreeBar = document.getElementById('networkDegreeBar');
+  const networkDegreeText = document.getElementById('networkDegreeText');
+  const hydrationStatusDisplay = document.getElementById('hydrationStatusDisplay');
   const expTitle = document.getElementById('simExplanationTitle');
   const expText = document.getElementById('simExplanationText');
 
   const T = simState.temperature;
-  const isGelatine = simState.gelType === 'gelatine';
 
-  // Schmelzpunkt Gelatine: ca. 35 °C; Polysaccharid: ca. 65 °C
-  const meltTemp = isGelatine ? 35 : 65;
-  const isGel = T < meltTemp;
+  // Mathematische S-Kurve für den Sol-Gel-Übergang um 40 °C
+  // gelFactor: 1.0 (maximales Gel) bis 0.0 (vollständiges Sol)
+  const gelFactor = 1 / (1 + Math.exp((T - 40) / 4.5));
+  const networkPercent = Math.round(gelFactor * 96 + 2);
 
-  if (isGel) {
-    phaseDisplay.textContent = 'Elastisches GEL (Netzwerk stabil)';
-    phaseDisplay.className = 'metric-value phase-gel';
-    const visc = Math.max(20, Math.min(95, 95 - (T / meltTemp) * 40));
-    viscosityBar.style.width = `${visc}%`;
-    waterMobilityDisplay.textContent = 'Gering (in Maschen immobilisiert)';
+  if (networkDegreeBar) networkDegreeBar.style.width = `${networkPercent}%`;
+  if (networkDegreeText) networkDegreeText.textContent = `${networkPercent} %`;
 
-    if (isGelatine) {
-      expTitle.textContent = `Gelatine-Netzwerk bei ${T} °C`;
-      expText.textContent = 'Polypeptidketten sind partiell verknüpft. Das 3D-Maschenwerk hält Wassermoleküle über Wasserstoffbrücken fest.';
-    } else {
-      expTitle.textContent = `Polysaccharid-Netzwerk bei ${T} °C`;
-      expText.textContent = 'Polysaccharidketten bilden durch Quervernetzungen ein kontinuierliches Gitter, das Wassermoleküle in den Maschen immobilisiert.';
+  if (T < 38) {
+    if (phaseDisplay) {
+      phaseDisplay.textContent = 'Elastisches 3D-GEL (Netzwerk stabil)';
+      phaseDisplay.className = 'metric-value phase-gel';
+    }
+    if (hydrationStatusDisplay) {
+      hydrationStatusDisplay.textContent = 'Starke Hydrathülle (Wasser immobilisiert)';
+    }
+    if (expTitle) expTitle.textContent = `Polymernetzwerk & Hydratisierung bei ${T} °C`;
+    if (expText) {
+      expText.textContent = 'Die Polymerketten sind über stabile Verknüpfungszonen (Junction Zones) zu einem kontinuierlichen 3D-Netzwerk verknäult. ' +
+        'Polare Gruppen lagern Wassermoleküle über Wasserstoffbrücken zu einer dichten Hydrathülle an, während freies Wasser in den Maschen immobilisiert ist (viskoelastischer Festkörper).';
+    }
+  } else if (T <= 45) {
+    if (phaseDisplay) {
+      phaseDisplay.textContent = 'Sol-Gel-Übergangszone (Gleichgewicht)';
+      phaseDisplay.className = 'metric-value phase-transition';
+    }
+    if (hydrationStatusDisplay) {
+      hydrationStatusDisplay.textContent = 'Partielle Hydratisierung (Maschen lockern sich)';
+    }
+    if (expTitle) expTitle.textContent = `Sol-Gel-Gleichgewicht bei ${T} °C`;
+    if (expText) {
+      expText.textContent = 'Die thermische kinetische Energie gleicht den schwachen zwischenmolekularen Bindungskräften. ' +
+        'Verknäulungsknoten brechen dynamisch auf und schließen sich kurzzeitig wieder. Das Gel verliert seine Formfestigkeit und beginnt zu schmelzen.';
     }
   } else {
-    phaseDisplay.textContent = 'Flüssiges SOL (Ketten frei beweglich)';
-    phaseDisplay.className = 'metric-value phase-sol';
-    const visc = Math.max(10, Math.min(30, 30 - ((T - meltTemp) / 30) * 15));
-    viscosityBar.style.width = `${visc}%`;
-    waterMobilityDisplay.textContent = 'Hoch (freie Diffusion / Brownsche Bewegung)';
-
-    if (isGelatine) {
-      expTitle.textContent = `Gelatine im Sol-Zustand bei ${T} °C`;
-      expText.textContent = 'Durch die thermische kinetische Energie haben sich die Verknüpfungsknoten gelöst. Die Polypeptidketten gleiten frei aneinander vorbei (Sol-Zustand).';
-    } else {
-      expTitle.textContent = `Polysaccharid im Sol-Zustand bei ${T} °C`;
-      expText.textContent = 'Bei höherer Temperatur löst sich das Netzwerk auf und die Makromoleküle liegen frei beweglich in Lösung vor.';
+    if (phaseDisplay) {
+      phaseDisplay.textContent = 'Flüssiges SOL (Ketten frei beweglich)';
+      phaseDisplay.className = 'metric-value phase-sol';
+    }
+    if (hydrationStatusDisplay) {
+      hydrationStatusDisplay.textContent = 'Gelöste Hydrathüllen (freie Wasser-Diffusion)';
+    }
+    if (expTitle) expTitle.textContent = `Flüssiges Sol bei ${T} °C`;
+    if (expText) {
+      expText.textContent = 'Bei hoher Temperatur überwindet die Brownsche Wärmebewegung die zwischenmolekularen Kräfte. ' +
+        'Die Polymerketten bewegen sich als isolierte, freie Knäuel aneinander vorbei. Die Hydrathüllen sind dynamisch aufgebrochen; die Flüssigkeit fließt ungehindert.';
     }
   }
 }
@@ -261,102 +427,328 @@ function updateAndDrawSimulation(ctx, width, height) {
   ctx.clearRect(0, 0, width, height);
 
   const T = simState.temperature;
-  const isGelatine = simState.gelType === 'gelatine';
-  const meltTemp = isGelatine ? 35 : 65;
-  const isGel = T < meltTemp;
+  // gelFactor: 1 = tiefgefroren/raumtemperiertes Gel, 0 = heißes Sol
+  const gelFactor = 1 / (1 + Math.exp((T - 40) / 4.5));
+  const isGel = gelFactor > 0.45;
+  const view = simState.viewMode;
 
-  const thermalJitter = 0.2 + (T / 90) * 2.0;
+  // 1. PHYSIK-UPDATE: Polymerketten & Verknäulung
+  // =============================================
+  const thermalNoise = (0.25 + (T / 90) * 2.8) * (1 - gelFactor * 0.7);
 
-  // 1. Polymerketten aktualisieren & zeichnen
-  ctx.lineWidth = 3;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
+  // Kettenglied-Verbindungsfedern & Grundschwingung
+  simState.chains.forEach((chain) => {
+    // Interne Federkräfte zwischen benachbarten Gliedern
+    const restLen = 28;
+    for (let i = 0; i < chain.length - 1; i++) {
+      const n1 = chain[i];
+      const n2 = chain[i + 1];
+      const dx = n2.x - n1.x;
+      const dy = n2.y - n1.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const diff = (dist - restLen);
+      const k = 0.08 + gelFactor * 0.12;
 
-  simState.chains.forEach((chain, cIdx) => {
-    // Knotenpunkte bewegen
-    chain.forEach(node => {
-      if (isGel) {
-        // Im Gel: Schwaches Oszillieren um Basisposition
-        node.x += (Math.random() - 0.5) * thermalJitter;
-        node.y += (Math.random() - 0.5) * thermalJitter;
-        node.x += (node.baseX - node.x) * 0.05;
-        node.y += (node.baseY - node.y) * 0.05;
-      } else {
-        // Im Sol: Freie Knäuel-Bewegung
-        node.x += node.vx * (1 + T / 30);
-        node.y += node.vy * (1 + T / 30);
-        if (node.x < 20 || node.x > width - 20) node.vx *= -1;
-        if (node.y < 20 || node.y > height - 20) node.vy *= -1;
-      }
-    });
+      const fx = (dx / dist) * diff * k;
+      const fy = (dy / dist) * diff * k;
 
-    // Kette zeichnen
-    ctx.beginPath();
-    ctx.moveTo(chain[0].x, chain[0].y);
-    for (let i = 1; i < chain.length; i++) {
-      ctx.lineTo(chain[i].x, chain[i].y);
+      n1.vx += fx;
+      n1.vy += fy;
+      n2.vx -= fx;
+      n2.vy -= fy;
     }
-    ctx.strokeStyle = isGelatine ? '#38bdf8' : '#4ade80';
-    ctx.stroke();
 
-    // Monomer-Knoten zeichnen
-    chain.forEach(node => {
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
-      ctx.fillStyle = isGelatine ? '#0284c7' : '#16a34a';
-      ctx.fill();
+    // Bewegung der einzelnen Knoten
+    chain.forEach((node) => {
+      // Wenn der Knoten aktiv mit der Maus/Touch gezogen wird
+      if (simState.isDragging && simState.dragNode === node) {
+        node.x += (simState.mousePos.x - node.x) * 0.35;
+        node.y += (simState.mousePos.y - node.y) * 0.35;
+        node.vx = 0;
+        node.vy = 0;
+        return;
+      }
+
+      // Elastische Rückstellkraft zur Netzwerk-Basisposition (nur im Gel wirksam)
+      const anchorK = gelFactor * 0.045;
+      node.vx += (node.baseX - node.x) * anchorK;
+      node.vy += (node.baseY - node.y) * anchorK;
+
+      // Thermisches Zittern / Brownsche Bewegung
+      node.vx += (Math.random() - 0.5) * thermalNoise;
+      node.vy += (Math.random() - 0.5) * thermalNoise;
+
+      // Im Sol: Freie Knäuel-Drift durch die Lösung
+      if (!isGel) {
+        const driftBoost = (T - 38) / 50 * 0.8;
+        node.vx += (Math.random() - 0.5) * driftBoost;
+        node.vy += (Math.random() - 0.5) * driftBoost;
+      }
+
+      // Dämpfung (Viskosität)
+      const damping = 0.86 - gelFactor * 0.08;
+      node.vx *= damping;
+      node.vy *= damping;
+
+      node.x += node.vx;
+      node.y += node.vy;
+
+      // Randbegrenzung
+      if (node.x < 15) { node.x = 15; node.vx *= -0.5; }
+      if (node.x > width - 15) { node.x = width - 15; node.vx *= -0.5; }
+      if (node.y < 15) { node.y = 15; node.vy *= -0.5; }
+      if (node.y > height - 15) { node.y = height - 15; node.vy *= -0.5; }
     });
   });
 
-  // 2. Wasserstoffbrückenbindungen (H-Brücken) zwischen benachbarten Ketten im Gel
-  if (simState.showHBonds && isGel) {
-    ctx.setLineDash([3, 4]);
-    ctx.lineWidth = 1.5;
-    ctx.strokeStyle = '#f59e0b'; // Amber H-Brücke
+  // Verknäulungskräfte an den Junction Zones (ziehen Knoten im Gel zusammen)
+  if (gelFactor > 0.05) {
+    const junctionK = gelFactor * 0.18;
+    simState.junctions.forEach(j => {
+      const dx = j.b.x - j.a.x;
+      const dy = j.b.y - j.a.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const targetDist = 12 * (1 - gelFactor * 0.5); // ziehen sich bis auf ~6px zusammen
+      const diff = dist - targetDist;
 
-    for (let c1 = 0; c1 < simState.chains.length; c1++) {
-      for (let c2 = c1 + 1; c2 < simState.chains.length; c2++) {
-        const n1 = simState.chains[c1][Math.floor(simState.chains[c1].length / 2)];
-        const n2 = simState.chains[c2][Math.floor(simState.chains[c2].length / 2)];
-        const dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
+      const fx = (dx / dist) * diff * junctionK;
+      const fy = (dy / dist) * diff * junctionK;
 
-        if (dist < 110) {
-          ctx.beginPath();
-          ctx.moveTo(n1.x, n1.y);
-          ctx.lineTo(n2.x, n2.y);
-          ctx.stroke();
-
-          // H-Brücken Symbolpunkt in der Mitte
-          ctx.beginPath();
-          ctx.arc((n1.x + n2.x) / 2, (n1.y + n2.y) / 2, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = '#f59e0b';
-          ctx.fill();
-        }
-      }
-    }
-    ctx.setLineDash([]);
-  }
-
-  // 3. Wassermoleküle
-  if (simState.showWater) {
-    simState.waterParticles.forEach(w => {
-      const speed = isGel ? (0.2 + (T / 90) * 0.8) : (1.0 + (T / 90) * 3.0);
-      w.x += w.vx * speed;
-      w.y += w.vy * speed;
-
-      if (w.x < 10) { w.x = 10; w.vx *= -1; }
-      if (w.x > width - 10) { w.x = width - 10; w.vx *= -1; }
-      if (w.y < 10) { w.y = 10; w.vy *= -1; }
-      if (w.y > height - 10) { w.y = height - 10; w.vy *= -1; }
-
-      // Kleines Wassermolekül (Sauerstoff blau, 2 Wasserstoffe)
-      ctx.beginPath();
-      ctx.arc(w.x, w.y, 2.8, 0, Math.PI * 2);
-      ctx.fillStyle = isGel ? 'rgba(56, 189, 248, 0.7)' : 'rgba(56, 189, 248, 0.4)';
-      ctx.fill();
+      j.a.vx += fx;
+      j.a.vy += fy;
+      j.b.vx -= fx;
+      j.b.vy -= fy;
     });
   }
+
+  // 2. PHYSIK-UPDATE: Wassermoleküle & Hydratisierung
+  // =================================================
+  const baseWaterSpeed = 0.35 + (T / 90) * 3.2;
+
+  simState.waterParticles.forEach(w => {
+    let closestNode = null;
+    let minDist = 999;
+
+    // Finde das nächstgelegene Polymer-Monomer für Hydratisierung
+    for (let c = 0; c < simState.chains.length; c++) {
+      const chain = simState.chains[c];
+      for (let n = 0; n < chain.length; n++) {
+        const d = Math.hypot(chain[n].x - w.x, chain[n].y - w.y);
+        if (d < minDist) {
+          minDist = d;
+          closestNode = chain[n];
+        }
+      }
+      if (minDist < 30) break;
+    }
+
+    // Hydratisierung: Wenn im Gel und nahe am Polymer, lagert sich Wasser über H-Brücken an
+    if (isGel && minDist < 45 && closestNode) {
+      w.isHydrated = true;
+      w.boundNode = closestNode;
+
+      // Anziehungskraft der H-Brücke (Hydrathülle)
+      const attractForce = gelFactor * 0.12;
+      const targetDist = 20 + (Math.sin(w.x * 0.1) * 6);
+      const diff = minDist - targetDist;
+      const dx = closestNode.x - w.x;
+      const dy = closestNode.y - w.y;
+
+      if (minDist > 1) {
+        w.vx += (dx / minDist) * diff * attractForce;
+        w.vy += (dy / minDist) * diff * attractForce;
+      }
+      // Starke Geschwindigkeitsdämpfung im Hydratwasser
+      w.vx *= 0.65;
+      w.vy *= 0.65;
+      w.angle = Math.atan2(dy, dx);
+    } else {
+      w.isHydrated = false;
+      w.boundNode = null;
+
+      // Freies Wasser: Brownsche Diffusion
+      w.vx += (Math.random() - 0.5) * baseWaterSpeed * 0.4;
+      w.vy += (Math.random() - 0.5) * baseWaterSpeed * 0.4;
+
+      // Im Gel sind auch nicht direkt gebundene Wassermoleküle in Maschen immobilisiert
+      if (isGel) {
+        w.vx *= 0.78;
+        w.vy *= 0.78;
+      } else {
+        w.vx *= 0.94;
+        w.vy *= 0.94;
+      }
+    }
+
+    w.x += w.vx;
+    w.y += w.vy;
+
+    // Randreflexion
+    if (w.x < 8) { w.x = 8; w.vx *= -1; }
+    if (w.x > width - 8) { w.x = width - 8; w.vx *= -1; }
+    if (w.y < 8) { w.y = 8; w.vy *= -1; }
+    if (w.y > height - 8) { w.y = height - 8; w.vy *= -1; }
+  });
+
+
+  // 3. RENDERING: Zeichnen auf Canvas
+  // =================================
+
+  // A. Hintergrund: Maschen-Zellen (Polygone) des 3D-Netzwerks schattieren (im Gel)
+  if (gelFactor > 0.25 && (simState.showJunctions || view === 'network' || view === 'all')) {
+    ctx.save();
+    ctx.fillStyle = `rgba(14, 165, 233, ${0.035 * gelFactor})`;
+    // Zeichne angedeutete geschlossene Maschen-Bereiche
+    for (let jIdx = 0; jIdx < simState.junctions.length - 1; jIdx += 2) {
+      const j1 = simState.junctions[jIdx];
+      const j2 = simState.junctions[jIdx + 1];
+      if (j1 && j2) {
+        ctx.beginPath();
+        ctx.moveTo(j1.a.x, j1.a.y);
+        ctx.lineTo(j1.b.x, j1.b.y);
+        ctx.lineTo(j2.b.x, j2.b.y);
+        ctx.lineTo(j2.a.x, j2.a.y);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  // B. Hydratisierungs-Schein (Hydrathülle als feine Aura um die Ketten)
+  if (simState.showHydration && gelFactor > 0.15 && (view === 'hydration' || view === 'all')) {
+    ctx.save();
+    const haloAlpha = (view === 'hydration' ? 0.28 : 0.15) * gelFactor;
+    ctx.strokeStyle = `rgba(56, 189, 248, ${haloAlpha})`;
+    ctx.lineWidth = 26;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    simState.chains.forEach(chain => {
+      ctx.beginPath();
+      ctx.moveTo(chain[0].x, chain[0].y);
+      for (let i = 1; i < chain.length; i++) {
+        const xc = (chain[i - 1].x + chain[i].x) / 2;
+        const yc = (chain[i - 1].y + chain[i].y) / 2;
+        ctx.quadraticCurveTo(chain[i - 1].x, chain[i - 1].y, xc, yc);
+      }
+      ctx.lineTo(chain[chain.length - 1].x, chain[chain.length - 1].y);
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  // C. H-Brücken zwischen Polymerketten und angelagerten Wassermolekülen
+  if (simState.showHydration && gelFactor > 0.2 && (view === 'hydration' || view === 'all')) {
+    ctx.save();
+    ctx.setLineDash([2, 3]);
+    ctx.lineWidth = view === 'hydration' ? 1.6 : 1.2;
+    ctx.strokeStyle = '#fbbf24'; // Golden amber H-Brücke
+
+    simState.waterParticles.forEach(w => {
+      if (w.isHydrated && w.boundNode) {
+        ctx.beginPath();
+        ctx.moveTo(w.boundNode.x, w.boundNode.y);
+        ctx.lineTo(w.x, w.y);
+        ctx.stroke();
+      }
+    });
+    ctx.restore();
+  }
+
+  // D. Polymerketten (Makromolekül-Rückgrat) zeichnen
+  simState.chains.forEach((chain, cIdx) => {
+    ctx.save();
+    // Leuchtendes Polymerrückgrat
+    ctx.beginPath();
+    ctx.moveTo(chain[0].x, chain[0].y);
+    for (let i = 1; i < chain.length; i++) {
+      const xc = (chain[i - 1].x + chain[i].x) / 2;
+      const yc = (chain[i - 1].y + chain[i].y) / 2;
+      ctx.quadraticCurveTo(chain[i - 1].x, chain[i - 1].y, xc, yc);
+    }
+    ctx.lineTo(chain[chain.length - 1].x, chain[chain.length - 1].y);
+
+    const chainColor = cIdx % 2 === 0 ? '#38bdf8' : '#818cf8';
+    ctx.strokeStyle = chainColor;
+    ctx.lineWidth = view === 'network' ? 3.8 : 3.0;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Monomer-Knoten mit polaren funktionellen Gruppen (-OH / -CO / -NH)
+    chain.forEach(node => {
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = chainColor;
+      ctx.fill();
+
+      // Weiß-cyanfarbener polarer Punkt im Zentrum
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+    });
+    ctx.restore();
+  });
+
+  // E. Verknäulungsknoten (Junction Zones) hervorheben
+  if (simState.showJunctions && gelFactor > 0.25 && (view === 'network' || view === 'all')) {
+    ctx.save();
+    simState.junctions.forEach(j => {
+      const midX = (j.a.x + j.b.x) / 2;
+      const midY = (j.a.y + j.b.y) / 2;
+      const dist = Math.hypot(j.a.x - j.b.x, j.a.y - j.b.y);
+
+      // Verbindungslinie an der Verknüpfungsstelle
+      ctx.beginPath();
+      ctx.moveTo(j.a.x, j.a.y);
+      ctx.lineTo(j.b.x, j.b.y);
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Leuchtender Verknäulungs-Punkt
+      ctx.beginPath();
+      ctx.arc(midX, midY, dist < 16 ? 5.5 : 4.0, 0, Math.PI * 2);
+      ctx.fillStyle = '#f59e0b';
+      ctx.shadowColor = '#f59e0b';
+      ctx.shadowBlur = view === 'network' ? 8 : 4;
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  // F. Wassermoleküle (H₂O) zeichnen
+  if (simState.showWater) {
+    ctx.save();
+    simState.waterParticles.forEach(w => {
+      const isBound = w.isHydrated;
+      const oxygenAlpha = isBound ? 0.95 : (isGel ? 0.65 : 0.85);
+
+      // Sauerstoffatom (O, cyan-blau)
+      ctx.beginPath();
+      ctx.arc(w.x, w.y, isBound ? 3.0 : 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = isBound ? `rgba(103, 232, 249, ${oxygenAlpha})` : `rgba(56, 189, 248, ${oxygenAlpha})`;
+      ctx.fill();
+
+      // Zwei Wasserstoffatome (H, hellweiß) im 104°-Winkel andeuten
+      const ang = w.angle || 0;
+      const hDist = 3.2;
+      const h1x = w.x + Math.cos(ang + 0.9) * hDist;
+      const h1y = w.y + Math.sin(ang + 0.9) * hDist;
+      const h2x = w.x + Math.cos(ang - 0.9) * hDist;
+      const h2y = w.y + Math.sin(ang - 0.9) * hDist;
+
+      ctx.beginPath();
+      ctx.arc(h1x, h1y, 1.3, 0, Math.PI * 2);
+      ctx.arc(h2x, h2y, 1.3, 0, Math.PI * 2);
+      ctx.fillStyle = isBound ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.6)';
+      ctx.fill();
+    });
+    ctx.restore();
+  }
 }
+
 
 // ==========================================================================
 // 7. Interaktiver Peptidbindungs-Simulator (Kondensation)
