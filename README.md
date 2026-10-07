@@ -59,7 +59,7 @@ Dieses Lernportal setzt diesen Bildungsplan-Kontext als **dualen Vergleichspfad*
    * Eingebettete Schüler-Skizzen und Myoglobin-Abbildung mit Häm-Cofaktor.
    * Erklärung des Kiwi-/Ananas-Phänomens (Proteolyse durch Actinidain/Bromelain).
 3. **Glykosidischer Bindungs- & Polysaccharid-Architekt:**
-   * Umschaltung zwischen offenkettiger Fischer-Projektion der D-Glucose (4 Chiralitätszentren) und den ringförmigen Halbacetalen (α- und β-D-Glucopyranose in Haworth-Projektion).
+   * Systematischer Strukturvergleich zwischen offenkettiger Fischer-Projektion der D-Glucose (4 Chiralitätszentren) und den ringförmigen Halbacetalen (α- und β-D-Glucopyranose in Haworth-Projektion).
    * Verknüpfung zu Disacchariden (Maltose, Saccharose, Lactose) und Polysacchariden.
    * Direkter Strukturvergleich der Stärkebestandteile: lineare, schraubenförmige **Amylose** (α-1,4) vs. baumartig verzweigtes **Amylopektin** (zusätzliche α-1,6-Verzweigungen).
 4. **Diagnose- und Kompetenzmodul:**

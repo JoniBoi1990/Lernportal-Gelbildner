@@ -912,12 +912,25 @@ input[type="range"] {
   color: var(--color-primary);
 }
 
+.highlight-group.oh {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-accent);
+}
+
 .highlight-peptide-bond {
   background: linear-gradient(90deg, rgba(37, 99, 235, 0.2), rgba(168, 85, 247, 0.2));
   border: 1px dashed var(--color-primary);
   padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
   color: var(--color-primary);
+}
+
+.highlight-glycosidic-bond {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(14, 165, 233, 0.2));
+  border: 1px dashed var(--color-accent);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
 }
 
 .reaction-plus {
@@ -1266,71 +1279,6 @@ input[type="range"] {
   margin-bottom: 0.5rem;
 }
 
-.branch-illustration-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-}
-
-.branch-illustration-box h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 0.85rem;
-}
-
-.chain-comparison-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.chain-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.chain-name {
-  font-weight: 700;
-  width: 110px;
-  font-size: 0.88rem;
-}
-
-.ring-node {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: var(--color-carbo);
-  color: #ffffff;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 0.75rem;
-}
-
-.bond-line {
-  font-size: 0.72rem;
-  color: var(--color-text-muted);
-  margin: 0 0.25rem;
-  font-family: var(--font-mono);
-}
-
-.branch-top,
-.branch-main {
-  display: flex;
-  align-items: center;
-}
-
-.branch-connector {
-  padding-left: 2.5rem;
-  font-size: 0.75rem;
-  color: var(--color-danger);
-  font-weight: bold;
-  font-family: var(--font-mono);
-}
 
 /* ==========================================================================
    Modul Synthese: Vergleichstabelle & Accordion

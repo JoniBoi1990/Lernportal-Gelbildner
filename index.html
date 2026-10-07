@@ -102,8 +102,8 @@
         <div class="hero-badge">Küchenchemie trifft Makromoleküle</div>
         <h2>Panna Cotta: Das Geheimnis des perfekten Gels</h2>
         <p class="hero-desc">
-          Zwei Schalen Panna Cotta stehen vor dir. Die Gelbildner sind chemisch sehr verschieden. Schmeckst du den
-          Unterschied auch?
+          Zwei Schalen Panna Cotta stehen vor dir. Die beiden Gelbildner sind chemisch grundverschieden aufgebaut –
+          führen makroskopisch aber zu demselben Phänomen: einem stabilen, elastischen Gel.
         </p>
       </div>
 
@@ -525,10 +525,10 @@
             <div class="struct-img-caption">
               <strong>Fischer-Projektion der D-Glucose:</strong>
               <ul>
-                <li><strong>C1 (oben):</strong> Aldehydgruppe (−CH=O) bestimmt den Charakter als <em>Aldohexose</em> (reduzierende Eigenschaft).</li>
+                <li><strong>C1 (oben):</strong> Aldehydgruppe (−CH=O) bestimmt den Charakter als <em>Aldohexose</em> (reaktives Carbonylzentrum für den Ringschluss).</li>
                 <li><strong>C2 bis C5:</strong> Vier Asymmetriezentren (Chiralitätszentren).</li>
                 <li><strong>D-Konfiguration:</strong> Die OH-Gruppe am C5 (dem am weitesten von C1 entfernten Chiralitätszentrum) steht nach <strong>rechts</strong> (D = dexter).</li>
-                <li><strong>Merkhilfe (Ta-Ba-Ta-Ta):</strong> Orientierung der OH-Gruppen an C2–C5: rechts – links – rechts – rechts.</li>
+                <li><strong>Merkhilfe (Ta-Tü-Ta-Ta-Regel):</strong> Orientierung der OH-Gruppen an C2–C5: rechts (Ta) – links (Tü) – rechts (Ta) – rechts (Ta).</li>
               </ul>
             </div>
           </div>
@@ -542,8 +542,8 @@
               <strong>Haworth-Projektion (α-Anomer):</strong>
               <ul>
                 <li><strong>Halbacetal-Ringschluss:</strong> C5-OH greift nucleophil C1 an → Sechsring (Pyranose).</li>
-                <li><strong>Anomeres Zentrum (C1):</strong> C1 wird asymmetrisch.</li>
-                <li><strong>α-D-Glucose:</strong> Die anomere OH-Gruppe am C1 zeigt nach <strong>unten</strong> (trans zur CH₂OH-Gruppe an C5).</li>
+                <li><strong>FLoH-Regel (Fischer links, oben Haworth):</strong> C3-OH (in Fischer links) steht im Ring nach oben; C2-OH und C4-OH (in Fischer rechts) stehen nach unten.</li>
+                <li><strong>α-D-Glucose:</strong> Die neu gebildete anomere OH-Gruppe am C1 zeigt nach <strong>unten</strong> (trans zur CH₂OH-Gruppe an C5).</li>
                 <li><strong>Bedeutung für Stärke:</strong> Ermöglicht gewinkelte α-1,4-Ketten und spiralförmige Helices (Amylose).</li>
               </ul>
             </div>
@@ -557,44 +557,28 @@
             <div class="struct-img-caption">
               <strong>Haworth-Projektion (β-Anomer):</strong>
               <ul>
-                <li><strong>Äquatoriale Lage:</strong> Am anomeren C1 steht die OH-Gruppe nach <strong>oben</strong> (cis zur CH₂OH-Gruppe an C5).</li>
-                <li><strong>Thermodynamische Stabilität:</strong> In wässriger Lösung liegt das Gleichgewicht zu ca. 64 % bei der β-Form (alle großen Substituenten äquatorial).</li>
-                <li><strong>Mutarotation:</strong> Über die offenkettige Form stellt sich ein dynamisches Gleichgewicht (ca. 36 % α, < 0,1 % offen, 64 % β) ein.</li>
+                <li><strong>FLoH-Regel konsequent:</strong> C3-OH steht oben; C2-OH und C4-OH stehen nach unten.</li>
+                <li><strong>Äquatoriale Lage (C1):</strong> Am anomeren C1 steht die OH-Gruppe nach <strong>oben</strong> (cis zur CH₂OH-Gruppe an C5).</li>
+                <li><strong>Thermodynamische Stabilität:</strong> In wässriger Lösung liegt das Mutarotations-Gleichgewicht zu ca. 64 % bei der β-Form.</li>
                 <li><strong>Bedeutung für Cellulose:</strong> β-1,4-Bindungen führen zu gestreckten, linearen Faserbündeln.</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- Interaktiver Ringschluss-Schalter -->
-        <div class="ring-closure-interactive">
-          <div class="toggle-control-box">
-            <span>Darstellungsform wählen:</span>
-            <div class="btn-group">
-              <button id="btnShowFischer" class="btn btn-outline active">Fischer-Projektion (offenkettig)</button>
-              <button id="btnShowHaworthAlpha" class="btn btn-outline">α-D-Glucopyranose (Haworth)</button>
-              <button id="btnShowHaworthBeta" class="btn btn-outline">β-D-Glucopyranose (Haworth)</button>
-            </div>
+        <!-- Zusammenfassende Fachkonzepte der Monosaccharide -->
+        <div class="sugar-facts-grid" style="margin-top: 1.5rem;">
+          <div class="fact-item">
+            <strong>Chiralitätszentren:</strong> In der Fischer-Projektion besitzt D-Glucose <strong>4 asymmetrische C-Atome</strong> (C2, C3, C4, C5).
           </div>
-
-          <div class="structure-diagram-container" id="sugarDiagramContainer">
-            <!-- Dynamisches SVG / Bild für Zuckerstrukturen -->
+          <div class="fact-item">
+            <strong>D-Konfiguration &amp; Ta-Tü-Ta-Ta-Regel:</strong> Die OH-Gruppe am weitesten von C1 entfernten Chiralitätszentrum (C5) steht nach <strong>rechts</strong> (D = dexter). Orientierung der OH-Gruppen an C2–C5: rechts (Ta) – links (Tü) – rechts (Ta) – rechts (Ta).
           </div>
-
-          <div class="sugar-facts-grid">
-            <div class="fact-item">
-              <strong>Chiralitätszentren:</strong> In der Fischer-Projektion besitzt D-Glucose <strong>4 asymmetrische
-                C-Atome</strong> (C2, C3, C4, C5).
-            </div>
-            <div class="fact-item">
-              <strong>D-Konfiguration:</strong> Die OH-Gruppe am am weitesten entfernten Chiralitätszentrum (C5) steht
-              nach <strong>rechts</strong> (D = dexter).
-            </div>
-            <div class="fact-item">
-              <strong>Anomeres C-Atom:</strong> Durch den Ringschluss entsteht am C1 ein neues Chiralitätszentrum. Steht
-              die OH-Gruppe am C1 unten (trans zu CH₂OH), spricht man von <strong>α-D-Glucose</strong>; steht sie oben
-              (cis), von <strong>β-D-Glucose</strong>.
-            </div>
+          <div class="fact-item">
+            <strong>FLoH-Regel (Fischer links, oben Haworth):</strong> Brücke zwischen Kette und Ring: Substituenten, die in der Fischer-Projektion nach <strong>links</strong> zeigen (z. B. C3-OH), stehen in der Haworth-Projektion nach <strong>oben</strong>. Zeigen sie in Fischer nach <strong>rechts</strong> (C2-OH, C4-OH), stehen sie in Haworth nach <strong>unten</strong>.
+          </div>
+          <div class="fact-item">
+            <strong>Halbacetal-Ringschluss &amp; anomeres C-Atom:</strong> Der intramolekulare Angriff der C5-OH-Gruppe auf das Carbonyl-C1 bildet ein neues Chiralitätszentrum (C1). Steht die Halbacetal-OH-Gruppe unten (trans zu CH₂OH), spricht man von <strong>α-D-Glucose</strong> (Stärke); steht sie oben (cis), von <strong>β-D-Glucose</strong> (Cellulose).
           </div>
         </div>
       </div>
@@ -622,7 +606,6 @@
               <li><strong>Kondensationsreaktion:</strong> Unter Abspaltung eines Wassermoleküls (H₂O) reagieren die beiden anomeren Hydroxygruppen miteinander.</li>
               <li><strong>Glykosidische Bindung (Glycosidic Bond):</strong> Es entsteht eine kovalente Sauerstoffbrücke (Vollacetal). Bei Saccharose handelt es sich um eine <strong>α-1,β-2-glykosidische Bindung</strong>.</li>
               <li><strong>Übertrag auf die Stärke-Synthese:</strong> In Amylose und Amylopektin erfolgt prinzipiell dieselbe Kondensationsreaktion, jedoch zwischen zwei Glucose-Molekülen: Das anomere C1-OH reagiert mit der alkoholischen C4-OH-Gruppe des Folgemonomers zu einer <strong>α-1,4-glykosidischen Bindung</strong>.</li>
-              <li><strong>Redoxverhalten (Fehling-Probe):</strong> Da bei Saccharose beide anomeren OH-Gruppen miteinander verknüpft sind, kann sich keine freie Aldehydgruppe mehr zurückbilden → Saccharose ist ein <strong>nicht-reduzierender Zucker</strong>. Bei Stärke und Maltose bleibt am Kettenende eine anomere Halbacetalgruppe frei → schwach reduzierend.</li>
             </ul>
           </div>
         </div>
@@ -631,12 +614,12 @@
           <div class="reaction-stage" id="glycosidicReactionStage">
             <div class="molecule-reactant" id="glycoReactant1">
               <div class="mol-title">α-D-Glucose (Monomer 1)</div>
-              <div class="mol-struct">C1-anomere <span class="highlight-group cooh">−OH</span> (unten)</div>
+              <div class="mol-struct">C1-anomere <span class="highlight-group oh">−OH</span> (unten)</div>
             </div>
             <div class="reaction-plus">+</div>
             <div class="molecule-reactant" id="glycoReactant2">
               <div class="mol-title">D-Glucose (Monomer 2)</div>
-              <div class="mol-struct">C4-alkoholische <span class="highlight-group nh2">HO−</span></div>
+              <div class="mol-struct">C4-alkoholische <span class="highlight-group oh">HO−</span></div>
             </div>
             <div class="reaction-arrow-wrap">
               <span class="arrow-symbol">⇄</span>
@@ -644,7 +627,7 @@
             </div>
             <div class="molecule-product">
               <div class="mol-title">Disaccharid: Maltose</div>
-              <div class="mol-struct"><span class="highlight-peptide-bond">α-1,4-glykosidische Bindung</span></div>
+              <div class="mol-struct"><span class="highlight-glycosidic-bond">α-1,4-glykosidische Bindung</span></div>
             </div>
           </div>
 
@@ -652,11 +635,11 @@
             <strong>Wichtige Disaccharide im Überblick:</strong>
             <ul>
               <li><strong>Maltose (Malzzucker):</strong> α-D-Glucose + D-Glucose über α-1,4-glykosidische Bindung
-                (reduzierend!).</li>
+                (zentraler Baustein und Spaltprodukt der Stärke).</li>
               <li><strong>Saccharose (Haushaltszucker):</strong> α-D-Glucose + β-D-Fructose über α-1,β-2-glykosidische
-                Bindung (nicht reduzierend!).</li>
+                Bindung (beide anomeren C-Atome sind miteinander verknüpft; wichtigstes Transportdisaccharid in Pflanzen).</li>
               <li><strong>Lactose (Milchzucker):</strong> β-D-Galactose + D-Glucose über β-1,4-glykosidische Bindung
-                (reduzierend).</li>
+                (charakteristisches Disaccharid in der Milch).</li>
             </ul>
           </div>
         </div>
@@ -686,8 +669,6 @@
               <li><strong>Raumstruktur:</strong> Durch die abgewinkelte α-1,4-Bindung rollt sich die Kette zu einer
                 <strong>linksgängigen Helix</strong> (Schraube) auf.
               </li>
-              <li><strong>Nachweis:</strong> Polyiodid-Ionen (I₃⁻, I₅⁻) lagern sich im Inneren der Helix ein
-                (Einschlussverbindung) → intensive <strong>tiefblaue Färbung (Iod-Stärke-Probe)</strong>.</li>
               <li><strong>Gel-Bildung:</strong> Beim Abkühlen lagern sich lineare Ketten über Wasserstoffbrücken
                 parallel an (Retrogradation) und bilden feste Gele.</li>
             </ul>
@@ -706,42 +687,9 @@
                 Monomere eine <strong>α-1,6-glykosidische Verzweigung</strong> (über die C6-Hydroxymethylgruppe).</li>
               <li><strong>Raumstruktur:</strong> Riesiges, baumartig verzweigtes Riesenmolekül (bis zu 100.000
                 Glucose-Einheiten, eines der größten Naturstoffmoleküle überhaupt!).</li>
-              <li><strong>Nachweis:</strong> Bildet mit Iod nur rötlich-violette Färbungen (kurze Helix-Segmente).</li>
               <li><strong>Gel-Eigenschaft:</strong> Verhindert durch die sperrige Verzweigung ein zu starkes Verklumpen
                 und sorgt für zähflüssigen, stabilen Kleister.</li>
             </ul>
-          </div>
-        </div>
-
-        <div class="branch-illustration-box">
-          <h4>Schematische Gegenüberstellung der Verknüpfung:</h4>
-          <div class="chain-comparison-visual">
-            <div class="chain-item">
-              <span class="chain-name">Amylose:</span>
-              <div class="chain-diagram amylose-chain">
-                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                <span class="ring-node">G</span> ... (lineare Kette / Helix)
-              </div>
-            </div>
-            <div class="chain-item">
-              <span class="chain-name">Amylopektin:</span>
-              <div class="chain-diagram amylopectin-chain">
-                <div class="branch-top">
-                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                  <span class="ring-node">G</span> (Seitenast)
-                </div>
-                <div class="branch-connector">| α-1,6</div>
-                <div class="branch-main">
-                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                  <span class="ring-node">G</span><span class="bond-line">α-1,4</span>
-                  <span class="ring-node">G</span> (Hauptstrang)
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSolGelSimulator();
   initPeptideBondInteractive();
   initProteinStructureTabs();
-  initSugarRingInteractive();
   initQuiz();
   initTransferTasks();
   initCompetenceGrid();
@@ -525,69 +524,7 @@ function initProteinStructureTabs() {
 }
 
 // ==========================================================================
-// 9. D-Glucose: Ringschluss & Haworth-Projektion
-// ==========================================================================
-
-const SUGAR_SVGS = {
-  fischer: `
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 0.5rem;">
-      <div class="struct-img-wrapper" style="max-width: 220px; padding: 0.75rem; margin-bottom: 0;">
-        <img src="assets/glucose_fischer_projektion.png" alt="D-Glucose in Fischer-Projektion" class="struct-img" style="max-height: 220px;">
-      </div>
-      <div style="font-size: 0.92rem; font-weight: 700; color: var(--color-primary);">D-Glucose in Fischer-Projektion (offenkettige Aldohexose)</div>
-      <div style="font-size: 0.82rem; color: var(--color-text-muted); text-align: center; max-width: 480px;">
-        C1: Aldehydgruppe • C2–C5: Asymmetrische C-Atome • C5-OH rechts (D-Konfiguration, Ta-Ba-Ta-Ta)
-      </div>
-    </div>
-  `,
-  haworthAlpha: `
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 0.5rem;">
-      <div class="struct-img-wrapper" style="max-width: 280px; padding: 0.75rem; margin-bottom: 0;">
-        <img src="assets/glucose_haworth_alpha.png" alt="α-D-Glucopyranose in Haworth-Projektion" class="struct-img" style="max-height: 180px;">
-      </div>
-      <div style="font-size: 0.92rem; font-weight: 700; color: var(--color-accent);">α-D-Glucopyranose (Haworth-Ringform)</div>
-      <div style="font-size: 0.82rem; color: var(--color-text-muted); text-align: center; max-width: 480px;">
-        Intramolekularer Halbacetal-Ringschluss (Sechsring / Pyranose) • C1-anomere OH-Gruppe zeigt nach UNTEN (trans zu C6-CH₂OH) • Monomerer Baustein von Stärke (Amylose & Amylopektin)
-      </div>
-    </div>
-  `,
-  haworthBeta: `
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 0.5rem;">
-      <div class="struct-img-wrapper" style="max-width: 280px; padding: 0.75rem; margin-bottom: 0;">
-        <img src="assets/glucose_haworth_beta.png" alt="β-D-Glucopyranose in Haworth-Projektion" class="struct-img" style="max-height: 180px;">
-      </div>
-      <div style="font-size: 0.92rem; font-weight: 700; color: var(--color-primary);">β-D-Glucopyranose (Haworth-Ringform)</div>
-      <div style="font-size: 0.82rem; color: var(--color-text-muted); text-align: center; max-width: 480px;">
-        C1-anomere OH-Gruppe zeigt nach OBEN (cis zu C6-CH₂OH) • Thermodynamisch begünstigte Form (ca. 64 % im Lösungsgleichgewicht) • Baustein von Cellulose
-      </div>
-    </div>
-  `
-};
-
-function initSugarRingInteractive() {
-  const container = document.getElementById('sugarDiagramContainer');
-  const btnFischer = document.getElementById('btnShowFischer');
-  const btnAlpha = document.getElementById('btnShowHaworthAlpha');
-  const btnBeta = document.getElementById('btnShowHaworthBeta');
-
-  if (!container) return;
-
-  function showSugar(type) {
-    container.innerHTML = SUGAR_SVGS[type] || '';
-    btnFischer.classList.toggle('active', type === 'fischer');
-    btnAlpha.classList.toggle('active', type === 'haworthAlpha');
-    btnBeta.classList.toggle('active', type === 'haworthBeta');
-  }
-
-  btnFischer.addEventListener('click', () => showSugar('fischer'));
-  btnAlpha.addEventListener('click', () => showSugar('haworthAlpha'));
-  btnBeta.addEventListener('click', () => showSugar('haworthBeta'));
-
-  showSugar('fischer');
-}
-
-// ==========================================================================
-// 10. Diagnose-Quiz & Bildungsplan-Auswertung (10 BE)
+// 9. Diagnose-Quiz & Bildungsplan-Auswertung (10 BE)
 // ==========================================================================
 
 function initQuiz() {
